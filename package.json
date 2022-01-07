@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "cloudinary": "^1.23.0",
     "concurrently": "^5.3.0",
     "cookie-parser": "^1.4.5",
@@ -25,11 +25,13 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
+    "forge-apis": "^0.8.6",
     "googleapis": "^61.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
+    "multer": "^1.4.4",
     "node-fetch": "^2.6.1",
-    "nodemailer": "^6.4.14"
+    "nodemailer": "^6.7.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.5"

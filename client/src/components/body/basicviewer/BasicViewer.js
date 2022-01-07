@@ -1,7 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const users = useSelector(state => state.users)
-const token = useSelector(state => state.token)
+// const users = useSelector(state => state.users)
+// const token = useSelector(state => state.token)
+
+// const [checkAdmin, setCheckAdmin] = useState(false)
+
+function createNewBucket() {
+
+}
+  
+function prepareAppBucketTree() {
+
+}
+  
+function autodeskCustomMenu(autodeskNode) {
+
+}
+  
+function uploadFile() {
+
+}
+  
+function translateObject(node) {
+
+}
 
 function BasicViewer() {
     return ( 
@@ -12,24 +34,43 @@ function BasicViewer() {
                         <div class="panel panel-default fill">
                             <div class="panel-heading" data-toggle="tooltip">
                                 Buckets &amp; Objects
+
                                 <span id="refreshBuckets" class="glyphicon glyphicon-refresh" style={{}}></span>
+
                                 <button class="btn btn-xs btn-info" style={{}} id="showFormCreateBucket" data-toggle="modal" data-target="#createBucketModal">
-                                <span class="glyphicon glyphicon-folder-close"></span> New bucket
+                                    <span class="glyphicon glyphicon-folder-close"></span> New bucket
                                 </button>
+
                             </div>
+
                             <div id="appBuckets">
+
+
+
+
+
                                 tree here
+
+
+
+
+
                             </div>
+
                         </div>
                     </div>
                     <div class="col-sm-8 fill">
+
                         <div id="forgeViewer"></div>
+
                     </div>
                 </div>
             </div>
+
             <form id="uploadFile" method='post' enctype="multipart/form-data">
                 <input id="hiddenUploadField" type="file" name="theFile" style={{}} />
             </form>
+
             <div class="modal fade" id="createBucketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

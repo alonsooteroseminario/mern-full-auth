@@ -14,10 +14,19 @@ app.use(cookieParser())
 app.use(fileUpload({
     useTempFiles: true
 }))
+const config = require('./config');
+if (config.credentials.client_id == null || config.credentials.client_secret == null) {
+    console.error('Missing FORGE_CLIENT_ID or FORGE_CLIENT_SECRET env. variables.');
+    return;
+}
 
 // Routes
 app.use('/user', require('./routes/userRouter'))
 app.use('/api', require('./routes/upload'))
+
+app.use('/api/forge/oauth', require('./routes/oauth'));
+app.use('/api/forge/oss', require('./routes/oss'));
+app.use('/api/forge/modelderivative', require('./routes/modelderivative'));
 
 
 // Connect to mongodb
