@@ -10,6 +10,7 @@ import ResetPass from '../body/auth/ResetPassword'
 
 import Profile from '../body/profile/Profile'
 import EditUser from '../body/profile/EditUser'
+import BasicViewer from './basicviewer/BasicViewer'
 
 import Home from '../body/home/Home'
 
@@ -33,6 +34,8 @@ function Body() {
 
                 <Route path="/profile" component={isLogged ? Profile : NotFound} exact />
                 <Route path="/edit_user/:id" component={isAdmin ? EditUser : NotFound} exact />
+
+                <Route path="/basicviewer" component={isAdmin ? BasicViewer : NotFound} exact />
 
             </Switch>
         </section>
