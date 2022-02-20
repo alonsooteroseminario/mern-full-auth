@@ -37,6 +37,8 @@ function Body() {
 
                 <Route path="/basicviewer" component={isAdmin ? BasicViewer : NotFound} exact />
 
+                
+
             </Switch>
         </section>
     )

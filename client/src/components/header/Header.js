@@ -22,7 +22,7 @@ function Header() {
 
     const userLink = () => {
         return <li className="drop-nav">
-            <Link to="#" className="avatar">
+            <Link to="/basicviewer" className="avatar">
             <img src={user.avatar} alt=""/> {user.name} <i className="fas fa-angle-down"></i>
             </Link>
             <ul className="dropdown">
@@ -39,7 +39,7 @@ function Header() {
     return (
         <header>
             <div className="logo">
-                <h1><Link to="/">DevAT✮Shop</Link></h1>
+                <h1><Link to="/basicviewer">3D Viewer</Link></h1>
             </div>
 
             <ul style={transForm}>

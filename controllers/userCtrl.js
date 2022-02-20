@@ -243,6 +243,9 @@ const userCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    linkedinLogin: async (req, res) => {
+
+    },
     facebookLogin: async (req, res) => {
         try {
             const {accessToken, userID} = req.body

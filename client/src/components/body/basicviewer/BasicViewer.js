@@ -1,44 +1,87 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+// import TreeView from 'react-simple-jstree';
+import axios from 'axios'
 
-// const users = useSelector(state => state.users)
-// const token = useSelector(state => state.token)
 
-// const [checkAdmin, setCheckAdmin] = useState(false)
+
+const  listData = (
+    <ul>
+        <li>
+            <button onClick={() => handleClick()}>Start Viewer</button>
+        </li>
+        <li>
+            hola
+        </li>
+    </ul>
+)
 
 function createNewBucket() {
+    //getElementById
 
-}
-  
-function prepareAppBucketTree() {
+    //axios
 
-}
-  
-function autodeskCustomMenu(autodeskNode) {
+} 
+function autodeskCustomMenu() {
 
-}
-  
+}  
 function uploadFile() {
 
 }
-  
 function translateObject(node) {
+    //getElementById
 
+    //getElementById
+
+    //axios POST
+
+}
+function handleClick() {
+    //set data
+
+}
+function handleChange(e) {
+    //set selected
 }
 
 function BasicViewer() {
+
+    const [data, setData] = useState({})
+
+    useEffect( () => {
+        prepareAppBucketTree();
+
+
+    }, [] )
+
+    async function prepareAppBucketTree() {
+        const res = await axios.get('/api/forge/oss/buckets');
+
+        let arrayNewObjects = []
+        res.data.forEach(node => {
+            // node.children = {id: node.id, text: node.text}
+            // console.log(node) //{id: "dfdfddfddfdfdfdggyhny", text: "example"}
+            arrayNewObjects.push(node)
+        });
+        // console.log(res.data)
+
+        setData(...arrayNewObjects)
+
+    }
+    // console.log(data)
+
     return ( 
         <>
-            <div class="container-fluid fill">
-                <div class="row fill">
-                    <div class="col-sm-4 fill">
-                        <div class="panel panel-default fill">
-                            <div class="panel-heading" data-toggle="tooltip">
+            <div className="container-fluid fill">
+                <div className="row fill">
+                    <div className="col-sm-4 fill">
+                        <div className="panel panel-default fill">
+                            <div className="panel-heading" data-toggle="tooltip">
                                 Buckets &amp; Objects
-
-                                <span id="refreshBuckets" class="glyphicon glyphicon-refresh" style={{}}></span>
-
-                                <button class="btn btn-xs btn-info" style={{}} id="showFormCreateBucket" data-toggle="modal" data-target="#createBucketModal">
-                                    <span class="glyphicon glyphicon-folder-close"></span> New bucket
+                                <br/>
+                                <span id="refreshBuckets" className="glyphicon glyphicon-refresh" style={{}}></span>
+                                <br/>
+                                <button className="btn btn-xs btn-info" style={{}} id="showFormCreateBucket" data-toggle="modal" data-target="#createBucketModal">
+                                    <span className="glyphicon glyphicon-folder-close"></span> New bucket
                                 </button>
 
                             </div>
@@ -47,19 +90,24 @@ function BasicViewer() {
 
 
 
+                                <br/>
+                                <div>
+                
+                                    {
+                                        listData
+                                    }
+                                    
 
 
-                                tree here
-
-
-
+                                </div>
+                                <br />
 
 
                             </div>
 
                         </div>
                     </div>
-                    <div class="col-sm-8 fill">
+                    <div className="col-sm-8 fill">
 
                         <div id="forgeViewer"></div>
 
@@ -67,30 +115,30 @@ function BasicViewer() {
                 </div>
             </div>
 
-            <form id="uploadFile" method='post' enctype="multipart/form-data">
+            {/* <form id="uploadFile">
                 <input id="hiddenUploadField" type="file" name="theFile" style={{}} />
-            </form>
+            </form> */}
 
-            <div class="modal fade" id="createBucketModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+            <div className="modal fade" id="createBucketModal" role="dialog" aria-labelledby="myModalLabel">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Cancel">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">Create new bucket</h4>
+                            <h4 className="modal-title" id="myModalLabel">Create new bucket</h4>
                         </div>
-                        <div class="modal-body">
-                            <input type="text" id="newBucketKey" class="form-control" /> For demonstration purposes, objects (files)
+                        <div className="modal-body">
+                            <input type="text" id="newBucketKey" className="form-control" /> For demonstration purposes, objects (files)
                             are NOT automatically translated. After you upload, right click on
                             the object and select "Translate". Note: Technically your bucket name is required to be globally unique across
                             the entire platform - to keep things simple with this tutorial your client ID will be prepended by default to
                             your bucket name and in turn masked by the UI so you only have to make sure your bucket name is unique within
                             your current Forge app.
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" id="createNewBucket">Go ahead, create the bucket</button>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" className="btn btn-primary" id="createNewBucket">Go ahead, create the bucket</button>
                         </div>
                     </div>
                 </div>
