@@ -12,7 +12,7 @@ class FeatureServices extends Component {
                         </div>
                         <h5 className="mt-4 mb-3">Propietario</h5>
                         <p></p>
-                        <Link  to="#" className="btn-link">
+                        <Link  to="/register" className="btn-link">
                             Comenzar
                         </Link>
                     </div>
@@ -24,7 +24,7 @@ class FeatureServices extends Component {
                         </div>
                         <h5 className="mt-4 mb-3">Constructora</h5>
                         <p></p>
-                        <Link  to="#" className="btn-link">
+                        <Link  to="/register" className="btn-link">
                         Comenzar
                         </Link>
                     </div>
@@ -36,7 +36,7 @@ class FeatureServices extends Component {
                         </div>
                         <h5 className="mt-4 mb-3">Contratista</h5>
                         <p></p>
-                        <Link to="#" className="btn-link">
+                        <Link to="/register" className="btn-link">
                         Comenzar
                         </Link>
                     </div>

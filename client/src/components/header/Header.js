@@ -39,11 +39,15 @@ function Header() {
     return (
         <header>
             <div className="logo">
-                <h1><Link to="/basicviewer">3D Viewer</Link></h1>
+                <h1><Link to="/">Weclash</Link></h1>
             </div>
 
             <ul style={transForm}>
-                <li><Link to="/"><i className="fas fa-shopping-cart"></i> Cart</Link></li>
+
+                <li><Link to="/basicviewer">
+                    <i className="fas fa-shopping-cart"></i> 3D Viewer
+                    </Link>
+                </li>
                 {
                     isLogged
                     ? userLink()

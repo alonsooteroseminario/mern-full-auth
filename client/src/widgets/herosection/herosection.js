@@ -14,10 +14,10 @@ class Herosection extends Component {
                       </h1>
                   {/* Text */}
                   <p className="lead text-light">Envía presupuestos de forma automática llevando el control de todas tus propuestas.</p>
-                  {/* Buttons */} <Link to="/" className="btn btn-primary mr-1">
+                  {/* Buttons */} <Link to="/register" className="btn btn-primary mr-1">
                     Saber más
                       </Link>
-                  <Link to="/" className="btn btn-primary mr-1">
+                  <Link to="/login" className="btn btn-primary mr-1">
                     Comenzar
                       </Link>
                 </div>
