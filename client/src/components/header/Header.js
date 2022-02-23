@@ -43,7 +43,10 @@ function Header() {
             </div>
 
             <ul style={transForm}>
-
+                <li><Link to="/bim360">
+                    <i className="fas fa-shopping-cart"></i> BIM 360
+                    </Link>
+                </li>
                 <li><Link to="/basicviewer">
                     <i className="fas fa-shopping-cart"></i> 3D Viewer
                     </Link>
