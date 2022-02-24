@@ -6,47 +6,58 @@ const { OAuth } = require('./common/oauth');
 let router = express.Router();
 
 router.get('/datamanagement', async (req, res) => {
-    // The id querystring parameter contains what was selected on the UI tree, make sure it's valid
-    const href = decodeURIComponent(req.query.id);
-    if (href === '') {
-        res.status(500).end();
-        return;
-    }
 
     // Get the access token
     const oauth = new OAuth(req.session);
     const internalToken = await oauth.getInternalToken();
-    if (href === '#') {
-        // If href is '#', it's the root tree node
-        getHubs(oauth.getClient(), internalToken, res);
-    } else {
-        // Otherwise let's break it by '/'
-        const params = href.split('/');
-        const resourceName = params[params.length - 2];
-        const resourceId = params[params.length - 1];
-        switch (resourceName) {
-            case 'hubs':
-                getProjects(resourceId, oauth.getClient(), internalToken, res);
-                break;
-            case 'projects':
-                // For a project, first we need the top/root folder
-                const hubId = params[params.length - 3];
-                getFolders(hubId, resourceId/*project_id*/, oauth.getClient(), internalToken, res);
-                break;
-            case 'folders':
-                {
-                    const projectId = params[params.length - 3];
-                    getFolderContents(projectId, resourceId/*folder_id*/, oauth.getClient(), internalToken, res);
-                    break;
-                }
-            case 'items':
-                {
-                    const projectId = params[params.length - 3];
-                    getVersions(projectId, resourceId/*item_id*/, oauth.getClient(), internalToken, res);
-                    break;
-                }
-        }
-    }
+
+    const hubs = new HubsApi();
+    const data = await hubs.getHubs({}, oauth.getClient(), internalToken);
+    console.log(data.body.data)
+    res.json(data.body.data);
+    // console.log(req)
+    // console.log(res)
+    // The id querystring parameter contains what was selected on the UI tree, make sure it's valid
+    // const href = decodeURIComponent(req.query.id);
+    // if (href === '') {
+    //     res.status(500).end();
+    //     return;
+    // }
+
+    // Get the access token
+    // const oauth = new OAuth(req.session);
+    // const internalToken = await oauth.getInternalToken();
+    // if (href === '#') {
+    //     // If href is '#', it's the root tree node
+    //     getHubs(oauth.getClient(), internalToken, res);
+    // } else {
+    //     // Otherwise let's break it by '/'
+    //     const params = href.split('/');
+    //     const resourceName = params[params.length - 2];
+    //     const resourceId = params[params.length - 1];
+    //     switch (resourceName) {
+    //         case 'hubs':
+    //             getProjects(resourceId, oauth.getClient(), internalToken, res);
+    //             break;
+    //         case 'projects':
+    //             // For a project, first we need the top/root folder
+    //             const hubId = params[params.length - 3];
+    //             getFolders(hubId, resourceId/*project_id*/, oauth.getClient(), internalToken, res);
+    //             break;
+    //         case 'folders':
+    //             {
+    //                 const projectId = params[params.length - 3];
+    //                 getFolderContents(projectId, resourceId/*folder_id*/, oauth.getClient(), internalToken, res);
+    //                 break;
+    //             }
+    //         case 'items':
+    //             {
+    //                 const projectId = params[params.length - 3];
+    //                 getVersions(projectId, resourceId/*item_id*/, oauth.getClient(), internalToken, res);
+    //                 break;
+    //             }
+    //     }
+    // }
 });
 
 async function getHubs(oauthClient, credentials, res) {
@@ -146,7 +157,12 @@ async function getVersions(projectId, itemId, oauthClient, credentials, res) {
 
 // Format data for tree
 function createTreeNode(_id, _text, _type, _children) {
-    return { id: _id, text: _text, type: _type, children: _children };
+    return {  
+        id: _id, 
+        text: _text, 
+        type: _type, 
+        children: _children 
+    };
 }
 
 module.exports = router;
