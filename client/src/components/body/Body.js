@@ -39,7 +39,8 @@ function Body() {
                 <Route path="/basicviewer" component={isLogged ? BasicViewer : NotFound} exact />
                 <Route path="/bim360" component={isLogged ? Bim360Viewer : NotFound} exact />
 
-                
+                <Route path="/api/forge/callback/oauth" component={isLogged ? Bim360Viewer : NotFound} exact />
+
 
             </Switch>
         </section>

@@ -13,8 +13,8 @@ router.get('/datamanagement', async (req, res) => {
 
     const hubs = new HubsApi();
     const data = await hubs.getHubs({}, oauth.getClient(), internalToken);
-    console.log(data.body.data)
-    res.json(data.body.data);
+    // console.log(data.body.data[0].id.split('|'))
+    // res.json(data.body.data);
     // console.log(req)
     // console.log(res)
     // The id querystring parameter contains what was selected on the UI tree, make sure it's valid

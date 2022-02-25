@@ -1,70 +1,35 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios'
+import { Link, useHistory } from 'react-router-dom'
+import {useParams} from 'react-router-dom'
+import { use } from 'bcrypt/promises';
 const Autodesk = window.Autodesk;
 
 function Bim360Viewer() {
 
     const [data, setData] = useState({})
+    const [token, setToken] = useState('')
+    const history = useHistory()
 
     useEffect( () => {
-        isSignedIn()
-        prepareUserHubsTree()
+        // SignIn()
+        // prepareUserHubsTree()
+        // console.log(document.location.href.split('?')[1].split('=')[1])
+        // setToken(document.location.href.split('?')[1].split('=')[1])
     }, [] )
 
-    async function isSignedIn() {
-        var viewer;
-        var options = {
-            env: 'AutodeskProduction',
-            api: 'derivativeV2',
-            getAccessToken: function(onTokenReady) {
-                fetch('/api/forge/oauth/token', //!<<< You own server backend endpoint for obtaining Forge access token from Forge OAuth
-                        {
-                            method: 'get',
-                            headers: new Headers({
-                                'Content-Type': 'application/json'
-                            })
-                        })
-                    .then(function(response) {
-                        if (response.status === 200) {
-                            // console.log(response)
-                            // '#signOut'
-
-                            // '#refreshHubs'
-
-                            return response.json();
-                        } else {
-                            return Promise.reject(
-                                new Error('Failed to fetch token from server (status: ' + response.status + ', message: ' + response.statusText + ')')
-                            );
-                        }
-                    })
-                    .then(function(data) {
-
-                        // '#userHubs' prepareUserHubsTree()
-
-
-                        if (!data)
-                            return Promise.reject(new Error('Empty token response'));
-                        onTokenReady(data.access_token, data.expires_in);
-                    })
-                    .catch(function(error) {
-                        console.error(error);
-                    });
-            }
-        };
-        // prepareUserHubsTree()
-        Autodesk.Viewing.Initializer(options, function() {
-            var htmlDiv = document.getElementById('forgeViewer');
-            viewer = new Autodesk.Viewing.GuiViewer3D(htmlDiv);
-            var startedCode = viewer.start();
-            if (startedCode > 0) {
-                console.error('Failed to create a Viewer: WebGL not supported.');
-                return;
-            }
-            // console.log(viewer)
-            console.log('Initialization complete, loading a model next...');
-        });
-
+    async function SignIn() {
+        var res = await axios.get('/api/forge/oauth/url')
+        // fetch('/api/forge/oauth/url').then(function (req, res) {
+        //     // document.location.href = req.url;
+        //     console.log(req.url)
+        //     console.log(document.location.href)
+        //   })
+        // setToken(res.data)
+        console.log(res.data)
+        document.location.href = res.data;
+        // history.push('/')
+        // prepareUserHubsTree(res.data)
     }
     var viewer;
     // @urn the model to show
@@ -105,23 +70,25 @@ function Bim360Viewer() {
         });
     }
 
-    async function prepareUserHubsTree(){ 
-        var res = await axios.get('/api/forge/datamanagement')
+    async function PrepareTree(){ 
 
-        res.data.forEach(node => {
-            // console.log(node.id)
-            console.log(node.links.self.href)
-            console.log(node.attributes.name)
-            console.log('hubs')
-            console.log(
-                createTreeNode(
-                node.links.self.href,
-                node.attributes.name,
-                'hubs',
-                true
-            ))
-            console.log(node.relationships.projects.links.related)
-        });
+        console.log(await fetch('/api/forge/datamanagement'))
+        // var res = await axios.get('/api/forge/datamanagement')
+
+        // res.data.forEach(node => {
+        //     // console.log(node.id)
+        //     console.log(node.links.self.href)
+        //     console.log(node.attributes.name)
+        //     console.log('hubs')
+        //     console.log(
+        //         createTreeNode(
+        //         node.links.self.href,
+        //         node.attributes.name,
+        //         'hubs',
+        //         true
+        //     ))
+        //     console.log(node.relationships.projects.links.related)
+        // });
     }
 
     // Format data for tree
@@ -149,10 +116,17 @@ function Bim360Viewer() {
                         </div>
                         <div id="userHubs">
                             <div >
-                            <button className="btn btn-lg btn-default" id="autodeskSigninButton">
+                            <button className="btn btn-lg btn-default" id="autodeskSigninButton" onClick={()=>SignIn()}>
                                 <img src="https://github.com/Autodesk-Forge/learn.forge.viewhubmodels/raw/master/img/autodesk_text.png"
                                 height="20" /> Sign in
                             </button>
+                            <button className="btn btn-lg btn-default" id="autodeskSigninButton" onClick={()=>PrepareTree()}>
+                                <img src="https://github.com/Autodesk-Forge/learn.forge.viewhubmodels/raw/master/img/autodesk_text.png"
+                                height="20" /> Prepare Tree
+                            </button>
+                            {/* <button onClick={() => history.goBack()} className="go_back">
+                                <i className="fas fa-long-arrow-alt-left"></i> Go Back
+                            </button> */}
                             <br/>
                             <br/>
                             <br/> You may also need to provision your<br/> BIM 360 Docs account for this app.<br/>
