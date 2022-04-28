@@ -8,6 +8,7 @@ let router = express.Router();
 router.get('/callback/oauth', async (req, res, next) => {
     const { code } = req.query;
     const oauth = new OAuth(req.session);
+    console.log(req.session)
     try {
         await oauth.setCode(code);
         res.redirect('/');

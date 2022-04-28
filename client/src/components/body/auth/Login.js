@@ -118,7 +118,7 @@ function Login() {
                 </div>
             </form>
 
-            <div className="hr">Or Login With</div>
+            {/* <div className="hr">Or Login With</div>
 
             <div className="social">
                 <GoogleLogin
@@ -137,7 +137,7 @@ function Login() {
 
 
 
-            </div>
+            </div> */}
 
             <p>New Customer? <Link to="/register">Register</Link></p>
         </div>

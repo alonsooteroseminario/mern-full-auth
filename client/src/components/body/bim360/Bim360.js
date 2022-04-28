@@ -16,10 +16,11 @@ function Bim360Viewer() {
         // prepareUserHubsTree()
         // console.log(document.location.href.split('?')[1].split('=')[1])
         // setToken(document.location.href.split('?')[1].split('=')[1])
-    }, [] )
+
+    }, [setToken] )
 
     async function SignIn() {
-        var res = await axios.get('/api/forge/oauth/url')
+        var res = await axios.get('http://localhost:5000/api/forge/oauth/url')
         // fetch('/api/forge/oauth/url').then(function (req, res) {
         //     // document.location.href = req.url;
         //     console.log(req.url)
@@ -63,7 +64,7 @@ function Bim360Viewer() {
     }
 
     function getForgeToken(callback) {
-            fetch('/api/forge/oauth/token').then(res => {
+            fetch('http://localhost:5000/api/forge/oauth/token').then(res => {
             res.json().then(data => {
                 callback(data.access_token, data.expires_in);
             });
@@ -72,23 +73,11 @@ function Bim360Viewer() {
 
     async function PrepareTree(){ 
 
-        console.log(await fetch('/api/forge/datamanagement'))
-        // var res = await axios.get('/api/forge/datamanagement')
+        var res = await getForgeToken()
+        console.log(res)
 
-        // res.data.forEach(node => {
-        //     // console.log(node.id)
-        //     console.log(node.links.self.href)
-        //     console.log(node.attributes.name)
-        //     console.log('hubs')
-        //     console.log(
-        //         createTreeNode(
-        //         node.links.self.href,
-        //         node.attributes.name,
-        //         'hubs',
-        //         true
-        //     ))
-        //     console.log(node.relationships.projects.links.related)
-        // });
+        console.log(token)
+        console.log(document.URL)
     }
 
     // Format data for tree

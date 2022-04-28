@@ -11,7 +11,6 @@ const PORT = process.env.PORT || 5000
 const config = require('./config');
 if (config.credentials.client_id == null || config.credentials.client_secret == null) {
     console.error('Missing FORGE_CLIENT_ID or FORGE_CLIENT_SECRET env. variables.');
-    return;
 }
 
 const app = express()
