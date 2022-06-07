@@ -2,72 +2,14 @@ import React, {useEffect, useState} from 'react';
 // import TreeView from 'react-simple-jstree';
 import axios from 'axios'
 
-
-
-const  listData = (
-    <ul>
-        <li>
-            <button onClick={() => handleClick()}>Start Viewer</button>
-        </li>
-        <li>
-            hola
-        </li>
-    </ul>
-)
-
-function createNewBucket() {
-    //getElementById
-
-    //axios
-
-} 
-function autodeskCustomMenu() {
-
-}  
-function uploadFile() {
-
-}
-function translateObject(node) {
-    //getElementById
-
-    //getElementById
-
-    //axios POST
-
-}
-function handleClick() {
-    //set data
-
-}
-function handleChange(e) {
-    //set selected
-}
-
 function BasicViewer() {
 
     const [data, setData] = useState({})
 
     useEffect( () => {
-        prepareAppBucketTree();
 
 
     }, [] )
-
-    async function prepareAppBucketTree() {
-        const res = await axios.get('/api/forge/oss/buckets');
-
-        let arrayNewObjects = []
-        res.data.forEach(node => {
-            // node.children = {id: node.id, text: node.text}
-            // console.log(node) //{id: "dfdfddfddfdfdfdggyhny", text: "example"}
-            arrayNewObjects.push(node)
-        });
-        // console.log(res.data)
-
-        setData(...arrayNewObjects)
-
-    }
-    // console.log(data)
 
     return ( 
         <>

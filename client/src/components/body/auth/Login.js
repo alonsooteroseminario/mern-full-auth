@@ -8,7 +8,7 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import linkedin from 'react-linkedin-login-oauth2';
-
+import { getForgeAccess } from "../../../redux/actions/forgeAuthActions";
 
 const initialState = {
     email: '',
@@ -40,6 +40,14 @@ function Login() {
 
             dispatch(dispatchLogin())
             history.push("/")
+
+            
+            dispatch(getForgeAccess(null, null, history))
+
+
+
+
+            
 
         } catch (err) {
             err.response.data.msg && 

@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session');
 const fileUpload = require('express-fileupload')
 const path = require('path')
+const oauth = require("./routes/oauth");
 
 const PORT = process.env.PORT || 5000
 const config = require('./config');
@@ -25,10 +26,11 @@ app.use(fileUpload({
 // Routes
 app.use('/user', require('./routes/userRouter'))
 app.use('/api', require('./routes/upload'))
+app.use("/api/oauth", oauth);
 // Routes Basic Viewer
-// app.use('/api/forge/oauth', require('./routes/routesBasic/oauth'));
-// app.use('/api/forge/oss', require('./routes/routesBasic/oss'));
-// app.use('/api/forge/modelderivative', require('./routes/routesBasic/modelderivative'));
+app.use('/api/forge/oauth', require('./routes/routesBasic/oauth'));
+app.use('/api/forge/oss', require('./routes/routesBasic/oss'));
+app.use('/api/forge/modelderivative', require('./routes/routesBasic/modelderivative'));
 // Routes BIM360 Viewer
 app.use(cookieSession({
     name: 'forge_session',

@@ -21,11 +21,15 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min'
 
 function Body() {
     const auth = useSelector(state => state.auth)
+    const forgeAuth = useSelector(state => state.forgeAuth)
+
     const {isLogged, isAdmin} = auth
+    const { isAuthenticated, forgeUser} = forgeAuth
+
     return (
         <section>
             <Switch>
-                <Route path="/" component={isLogged ? Bim360Viewer : Home} exact />
+                <Route path="/" component={ (isLogged && isAuthenticated) ? Bim360Viewer : Home} exact />
 
                 <Route path="/login" component={isLogged ? NotFound : Login} exact />
                 <Route path="/register" component={isLogged ? NotFound : Register} exact />
@@ -38,7 +42,7 @@ function Body() {
                 <Route path="/profile" component={isLogged ? Profile : NotFound} exact />
                 <Route path="/edit_user/:id" component={isAdmin ? EditUser : NotFound} exact />
 
-                <Route path="/basicviewer" component={isLogged ? BasicViewer : NotFound} exact />
+                <Route path="/basicviewer" component={(isLogged && isAuthenticated) ? BasicViewer : NotFound} exact />
                 {/* <Route path="/bim360" component={isLogged ? Bim360Viewer : NotFound} exact /> */}
 
                 <Route path="/api/forge/callback/oauth" component={isLogged ? RedirectView : NotFound} exact />
