@@ -1,17 +1,14 @@
-import { SET_FORGE_ACCESS, SET_VIEWER_ACCESS } from "./types";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import ACTIONS from './index'
+import {useDispatch} from 'react-redux'
+
 
 // Login - Get Forge Access - Auth
-export const getForgeAccess = (client_id, client_secret, history) => dispatch => {
+export const getForgeAccess = async (dispatch) => {
 
-  const body = {
-    client_id,
-    client_secret
-  };
-
-  axios
-    .post("/api/oauth", body)
+  await axios
+    .post("/api/oauth")
     .then(res => {
       // Save to localstorage
       const { access_token } = res.data;
@@ -23,7 +20,7 @@ export const getForgeAccess = (client_id, client_secret, history) => dispatch =>
       // Set current user
       dispatch(setForgeAccess(decoded));
       // Go to /dashboard
-      history.push("/");
+      // history.push("/");
     })
     .catch(err => console.log(err));
 };
@@ -46,7 +43,7 @@ export const getViewerAccess = () => dispatch => {
 // Set logged in user
 export const setForgeAccess = decoded => {
   return {
-    type: SET_FORGE_ACCESS,
+    type: ACTIONS.SET_FORGE_ACCESS,
     payload: decoded
   };
 };
@@ -54,7 +51,7 @@ export const setForgeAccess = decoded => {
 // Set viewer token
 export const setViewerAccess = decoded => {
   return {
-    type: SET_VIEWER_ACCESS,
+    type: ACTIONS.SET_VIEWER_ACCESS,
     payload: decoded
   };
 };

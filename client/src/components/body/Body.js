@@ -25,6 +25,7 @@ function Body() {
 
     const {isLogged, isAdmin} = auth
     const { isAuthenticated, forgeUser} = forgeAuth
+    console.log(isAuthenticated)
 
     return (
         <section>

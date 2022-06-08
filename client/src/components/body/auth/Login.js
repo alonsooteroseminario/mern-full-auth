@@ -34,6 +34,7 @@ function Login() {
         e.preventDefault()
         try {
             const res = await axios.post('/user/login', {email, password})
+            // console.log(res)
             setUser({...user, err: '', success: res.data.msg})
 
             localStorage.setItem('firstLogin', true)
@@ -42,7 +43,7 @@ function Login() {
             history.push("/")
 
             
-            dispatch(getForgeAccess(null, null, history))
+            dispatch(getForgeAccess(dispatch))
 
 
 
@@ -50,8 +51,8 @@ function Login() {
             
 
         } catch (err) {
-            err.response.data.msg && 
-            setUser({...user, err: err.response.data.msg, success: ''})
+            // err.response.data.msg && 
+            // setUser({...user, err: err.response.data.msg, success: ''})
         }
     }
 

@@ -1,15 +1,16 @@
 var express = require("express");
 var Axios = require("axios");
 const querystring = require("querystring");
-const keys = require("../config/forge");
+const config = require('../config');
 
 var router = express.Router();
 var client_id, client_secret;
 
 router.post("/", (req, res) => {
+
   // If user inputs some data use that data, if not use default variables
-  client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
-  client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
+  client_id = config.credentials.client_id;
+  client_secret = config.credentials.client_secret;
 
   var scopes =
     "data:read data:write data:create bucket:create bucket:read code:all account:read account:write";
