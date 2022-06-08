@@ -51,6 +51,10 @@ function Header() {
                     <i className="fas fa-shopping-cart"></i> 3D Viewer
                     </Link>
                 </li>
+                <li><Link to="/buckets">
+                    <i className="fas fa-shopping-cart"></i> Buckets
+                    </Link>
+                </li>
                 {
                     isLogged
                     ? userLink()

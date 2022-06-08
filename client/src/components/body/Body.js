@@ -13,6 +13,7 @@ import EditUser from '../body/profile/EditUser'
 import BasicViewer from './basicviewer/BasicViewer'
 import Bim360Viewer from './bim360/Bim360';
 import RedirectView from './bim360/RedirectView';
+import Buckets from "../buckets/Buckets";
 
 import Home from '../body/home/Home'
 
@@ -25,7 +26,7 @@ function Body() {
 
     const {isLogged, isAdmin} = auth
     const { isAuthenticated, forgeUser} = forgeAuth
-    console.log(isAuthenticated)
+
 
     return (
         <section>
@@ -42,7 +43,8 @@ function Body() {
 
                 <Route path="/profile" component={isLogged ? Profile : NotFound} exact />
                 <Route path="/edit_user/:id" component={isAdmin ? EditUser : NotFound} exact />
-
+                
+                <Route path="/buckets" component={(isLogged && isAuthenticated) ? Buckets : NotFound} exact />
                 <Route path="/basicviewer" component={(isLogged && isAuthenticated) ? BasicViewer : NotFound} exact />
                 {/* <Route path="/bim360" component={isLogged ? Bim360Viewer : NotFound} exact /> */}
 
