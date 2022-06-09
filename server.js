@@ -26,6 +26,7 @@ app.use(fileUpload({
 app.use('/user', require('./routes/userRouter'))
 app.use('/api', require('./routes/upload'))
 app.use("/api/oauth", require('./routes/oauth'));
+app.use("/api/datamanagement", require("./routes/datamanagement"));
 // Routes Basic Viewer
 app.use('/api/forge/oauth', require('./routes/routesBasic/oauth'));
 app.use('/api/forge/oss', require('./routes/routesBasic/oss'));
