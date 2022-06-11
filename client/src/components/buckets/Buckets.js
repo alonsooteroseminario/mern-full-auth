@@ -23,7 +23,7 @@ function Buckets() {
         
     }
 
-  }, [] )
+  }, [getBuckets, dispatch] )
 
   if (buckets === null || loading){
       bucketsContent = <Spinner />;

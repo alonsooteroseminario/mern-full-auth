@@ -1,108 +1,88 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useSelector, useDispatch} from 'react-redux'
+import {useParams, useHistory} from 'react-router-dom'
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { getModels, uploadModel } from "../../actions/forgeManagementActions";
+import { getModels, uploadModel } from "../../redux/actions/forgeManagementActions";
 import ModelItem from "./ModelItem";
 import Spinner from "../common/Spinner";
 
-class Models extends Component {
-  constructor(props) {
-    super(props);
+function Models() {
 
-    this.state = {
-      uploadFile: ""
-    };
+  const [uploadFile, setUploadFile] = useState("")
+  
 
-    this.handleFile = this.handleFile.bind(this);
-    this.handleUpload = this.handleUpload.bind(this);
+  useEffect( () => {
+
+    getModels(bucketKey, dispatch);
+
+  }, [getModels])
+
+  const handleFile = (e) => {
+
+    setUploadFile(e.target.files[0])
+
   }
 
-  componentDidMount() {
-    const { bucketKey } = this.props.match.params;
+  const handleUpload = () => {
 
-    this.props.getModels(bucketKey);
+    uploadModel(uploadFile, bucketKey);
   }
 
-  handleFile(e) {
-    this.setState({ uploadFile: e.target.files[0] });
-    // console.log(e.target.files[0])
-  }
+  const { bucketKey } = useParams()
 
-  handleUpload() {
-    const { bucketKey } = this.props.match.params;
-    // console.log(bucketKey)
+  const dispatch = useDispatch()
 
-    this.props.uploadModel(this.state.uploadFile, bucketKey);
-  }
+  const forgeManagement = useSelector( state => state.forgeManagement)
+  const { models, loading } = forgeManagement
 
-  render() {
-    const { bucketKey } = this.props.match.params;
-    const { models, loading } = this.props.forgeManagement;
-    let bucketContent;
+  let bucketContent;
 
-    if (models === null || loading) {
-      bucketContent = <Spinner />;
-    } else {
-      if (models.length > 0) {
-        bucketContent = models
-          .filter(model => model.objectKey.indexOf("zzz") === -1)
-          .map(model => (
-            <ModelItem
-              key={model.objectId}
-              bucketKey={bucketKey}
-              objectKey={model.objectKey}
-              objectId={model.objectId}
-              size={model.size}
-            />
-          ));
-      } else {
-        bucketContent = <p>There are no models available</p>;
-      }
-    }
-
-    return (
-      <div className="container">
-        <div className="row">
-          <Link to="/buckets" className="btn btn-sm btn-light mb-3 text-left">
-            Back To Bucket List
-          </Link>
-        </div>
-
-        {/* <h3 className="text-left p-5">
-          {" "}
-          List of models saved in bucket: {bucketKey}
-        </h3> */}
-        {bucketContent}
-        <div className="form-group m-5">
-          <label htmlFor="uploadModel"> Upload a Model</label>
-          <input
-            type="file"
-            id="uploadModel"
-            onChange={this.handleFile}
-            placeholder="Upload file..."
+  if (models === null || loading) {
+    bucketContent = <Spinner />;
+  } else {
+    if (models.length > 0) {
+      bucketContent = models
+        .filter(model => model.objectKey.indexOf("zzz") === -1)
+        .map(model => (
+          <ModelItem
+            key={model.objectId}
+            bucketKey={bucketKey}
+            objectKey={model.objectKey}
+            objectId={model.objectId}
+            size={model.size}
           />
-          <button className="btn btn-dark" onClick={this.handleUpload}>
-            {" "}
-            Upload{" "}
-          </button>
-        </div>
-      </div>
-    );
+        ));
+    } else {
+      bucketContent = <p>There are no models available</p>;
+    }
   }
+
+  return ( 
+      <>
+        <div className="container">
+          <div className="row">
+            <Link to="/buckets" className="btn btn-sm btn-light mb-3 text-left">
+              Back To Bucket List
+            </Link>
+          </div>
+
+          {bucketContent}
+          <div className="form-group m-5">
+            <label htmlFor="uploadModel"> Upload a Model</label>
+            <input
+              type="file"
+              id="uploadModel"
+              onChange={handleFile}
+              placeholder="Upload file..."
+            />
+            <button className="btn btn-dark" onClick={handleUpload}>
+              {" "}
+              Upload{" "}
+            </button>
+          </div>
+        </div>
+      </> 
+  );
 }
 
-Models.propTypes = {
-  getModels: PropTypes.func.isRequired,
-  uploadModel: PropTypes.func.isRequired,
-  forgeManagement: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  forgeManagement: state.forgeManagement
-});
-
-export default connect(
-  mapStateToProps,
-  { getModels, uploadModel }
-)(Models);
+export default Models;
