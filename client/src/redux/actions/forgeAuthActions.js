@@ -4,9 +4,8 @@ import ACTIONS from './index'
 
 
 // Login - Get Forge Access - Auth
-export const getForgeAccess = async (dispatch) => {
-
-  await axios
+export const getForgeAccess = (history, dispatch ) => {
+  axios
     .post("/api/oauth")
     .then(res => {
       // Save to localstorage
@@ -19,7 +18,7 @@ export const getForgeAccess = async (dispatch) => {
       // Set current user
       dispatch(setForgeAccess(decoded));
       // Go to /dashboard
-      // history.push("/");
+      history.push("/");
     })
     .catch(err => console.log(err));
 };

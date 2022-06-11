@@ -40,10 +40,10 @@ function Login() {
             localStorage.setItem('firstLogin', true)
 
             dispatch(dispatchLogin())
-            history.push("/")
+            // history.push("/")
 
             
-            dispatch(getForgeAccess(dispatch))
+            getForgeAccess(history, dispatch)
 
 
 

@@ -8,7 +8,7 @@ function ModelItem(props) {
   const dispatch = useDispatch()
 
   const handleClick = (bucketKey, objectKey) => {
-    deleteModel(bucketKey, objectKey);
+    // deleteModel(bucketKey, objectKey, dispatch);
   }
 
   const { objectKey, objectId, size, bucketKey } = props;
