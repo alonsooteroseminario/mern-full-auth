@@ -24,7 +24,7 @@ export const getForgeAccess = (history, dispatch ) => {
 };
 
 // Get Viewer Access
-export const getViewerAccess = () => dispatch => {
+export const getViewerAccess = (dispatch) => {
 
 
   axios

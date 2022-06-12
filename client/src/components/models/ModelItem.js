@@ -7,7 +7,7 @@ function ModelItem(props) {
 
   const dispatch = useDispatch()
 
-  const handleClick = (bucketKey, objectKey) => {
+  const handleClick = (bucketKey, objectKey, dispatch) => {
     // deleteModel(bucketKey, objectKey, dispatch);
   }
 
@@ -33,7 +33,7 @@ function ModelItem(props) {
             </Link>
             <button
               className="btn btn-sm btn-danger col-md-1"
-              onClick={handleClick(bucketKey, objectKey)}
+              onClick={handleClick(bucketKey, objectKey, dispatch)}
             >
               Delete
             </button>

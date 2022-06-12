@@ -78,7 +78,7 @@ export const deleteModel = (bucketKey, filename, dispatch) => {
         filename: filename
       }
     })
-    .then(res => dispatch(getModels(bucketKey)))
+    .then(res => dispatch(getModels(bucketKey, dispatch)))
     .catch(err => console.log(err));
 };
 

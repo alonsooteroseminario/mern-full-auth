@@ -43,8 +43,8 @@ router.post("/", (req, res) => {
 router.get("/public", function(req, res) {
   // client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
   // client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
-  client_id = client_id || keys.FORGE_CLIENT_ID;
-  client_secret = client_secret || keys.FORGE_CLIENT_SECRET;
+  client_id = config.credentials.client_id;
+  client_secret = config.credentials.client_secret;
   // console.log(client_id)
   // console.log(client_secret)
   Axios({

@@ -15,6 +15,7 @@ import Bim360Viewer from './bim360/Bim360';
 import RedirectView from './bim360/RedirectView';
 import Buckets from "../buckets/Buckets";
 import Models from "../models/Models";
+import Main from "../main2/Main";
 
 import Home from '../body/home/Home'
 
@@ -47,6 +48,7 @@ function Body() {
                 
                 <Route path="/buckets" component={(isLogged && isAuthenticated) ? Buckets : NotFound} exact />
                 <Route path="/bucket/detail/:bucketKey" component={(isLogged && isAuthenticated) ? Models : NotFound} exact />
+                <Route path="/bucket/detail/:bucketKey/:objectId/:filename" component={(isLogged && isAuthenticated) ? Main : NotFound} exact />
                 
                 <Route path="/basicviewer" component={(isLogged && isAuthenticated) ? BasicViewer : NotFound} exact />
                 {/* <Route path="/bim360" component={isLogged ? Bim360Viewer : NotFound} exact /> */}
