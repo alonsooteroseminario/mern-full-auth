@@ -9,6 +9,8 @@ function ViewerItem (props) {
 
   const { displayViewer, urn } = props;
 
+  console.log('urn---->', urn)
+
   const [viewerApp, setViewerApp] = useState(null)
   const [viewer, setViewer] = useState(null)
   const [itemSelected, setItemSelected] = useState(null)
@@ -16,11 +18,11 @@ function ViewerItem (props) {
   const forgeViewer = useSelector( state => state.forgeViewer)
   const dispatch = useDispatch()
   
-  const aa = (callback) => {
+  const aa = async (callback) => {
       setViewerApp(new window.Autodesk.Viewing.ViewingApplication(
         "MyViewerDiv"
       ))
-      callback()
+      await callback()
   }
   const bb = () => {
       let enviroment = {
@@ -31,10 +33,11 @@ function ViewerItem (props) {
       window.Autodesk.Viewing.Initializer(
         enviroment,
         () => {
+          
           const documentId = `urn:${urn}`;
           // console.log(viewerApp)
           if (viewerApp) {
-            console.log('AQUI')
+            // console.log('viewerApp--->',viewerApp)
             viewerApp.registerViewer(
               viewerApp.k3D,
               window.Autodesk.Viewing.Private.GuiViewer3D
@@ -48,23 +51,18 @@ function ViewerItem (props) {
         }
       )
   }
-  const cc = (viewer, callback) => {
+  const cc = async (viewer, callback) => {
     console.log(viewer)
-    setViewerApp(viewer)
-    callback()
+    setViewer(viewer)
+    await callback()
   }
   const dd = () => {
     setEvents()
   }
-  const ee = (callback) => {
-    callback()
-  }
 
   useEffect( 
-    
     () => {
 
-      aa(bb)
       getViewerAccess(dispatch);
 
       if (viewer) {
@@ -74,36 +72,15 @@ function ViewerItem (props) {
         );
       }
 
-    return function () {
+
+    return () => {
       if (viewer) {
         viewer.finish();
       }
     };
 
-  }, [])
-  const [ count, setCount] = useState(0)
-  useEffect( 
-    
-    () => {
+  }, [viewer])
 
-      aa(bb)
-      getViewerAccess(dispatch);
-
-      if (viewer) {
-        viewer.impl.selector.setSelection(
-          [forgeViewer.itemSelected],
-          viewer.model
-        );
-      }
-
-    return function () {
-      if (viewer) {
-        viewer.finish();
-      }
-    };
-
-  }, [count])
-  
 
   const getForgeToken = (callback) => {
       const { viewer_token } = forgeViewer;
@@ -162,6 +139,7 @@ function ViewerItem (props) {
   }
 
   const onSelectionEvent = () => {
+      // console.log('viewer--->',viewer)
       let currSelection = viewer.getSelection();
       setItemSelected(currSelection)
   }
@@ -180,12 +158,6 @@ function ViewerItem (props) {
       <div style={canvasStyle}>
         {/* <span style={textStyle}> Item: {itemSelected}</span> */}
         <div id="MyViewerDiv" />
-        <button
-        onClick={( ) => {
-          setCount(count+1)
-        }}>
-          Click
-        </button>
       </div>
     </div>
   );

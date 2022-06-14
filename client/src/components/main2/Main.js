@@ -21,34 +21,20 @@ function Main() {
     convertModel(objectId, filename, dispatch);
     getTreeInfo(objectId, filename, dispatch);
 
-  }, [convertModel, getTreeInfo])
+  }, [])
     
   const forgeDerivative = useSelector( state => state.forgeDerivative)
   const { objectInfo, urn, loading } = forgeDerivative;
-  // console.log(this.props.forgeDerivative)
+
+  // console.log('objectInfo---->', objectInfo)
+  // console.log('loading---->', loading)
+
   let mainContent;
 
   if (isEmpty(objectInfo) || loading) {
     mainContent = <CircleSpinner />;
   } else {
     mainContent = (
-      // <Tabs>
-      //   <TabList>
-      //     {/* <Tab>Budget</Tab> */}
-      //     <Tab>Viewer</Tab>
-      //     {/* <Tab>Design</Tab> */}
-      //   </TabList>
-
-      //   {/* <TabPanel>
-      //     <Budget />
-      //   </TabPanel> */}
-      //   <TabPanel>
-      //     <Viewer objectInfo={objectInfo} urn={urn} />
-      //   </TabPanel>
-      //   {/* <TabPanel>
-      //     <Design bucketKey={bucketKey} filename={filename} />
-      //   </TabPanel> */}
-      // </Tabs>
       <>
         <div className="container">
           <Viewer objectInfo={objectInfo} urn={urn} />

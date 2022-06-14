@@ -18,7 +18,7 @@ export const getForgeAccess = (history, dispatch ) => {
       // Set current user
       dispatch(setForgeAccess(decoded));
       // Go to /dashboard
-      history.push("/");
+      history.push("/buckets");
     })
     .catch(err => console.log(err));
 };
