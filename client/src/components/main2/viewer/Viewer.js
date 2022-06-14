@@ -18,7 +18,7 @@ function Viewer(props) {
         <h3> Viewer Component </h3>
         <Tree objectInfo={object1} />
       </div>
-      <div>
+      <div className="">
         <ViewerItem displayViewer={true} id="viewer" urn={urn} />
       </div>
     </div>

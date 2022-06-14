@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo, useRef } from "react";
+import React, {useEffect, useState, useMemo, useRef, useCallback } from "react";
 import {useSelector, useDispatch} from 'react-redux'
 import { getViewerAccess } from "../../../redux/actions/forgeAuthActions";
 import jQuery from "jquery";
@@ -11,76 +11,117 @@ function ViewerItem (props) {
 
   console.log('urn---->', urn)
 
-  const [viewerApp, setViewerApp] = useState(null)
+  const [viewerApp, setViewerApp] = useState(new window.Autodesk.Viewing.ViewingApplication(
+    "MyViewerDiv"
+  ))
   const [viewer, setViewer] = useState(null)
   const [itemSelected, setItemSelected] = useState(null)
 
   const forgeViewer = useSelector( state => state.forgeViewer)
   const dispatch = useDispatch()
   
-  const aa = async (callback) => {
-      setViewerApp(new window.Autodesk.Viewing.ViewingApplication(
-        "MyViewerDiv"
-      ))
-      await callback()
-  }
-  const bb = () => {
-      let enviroment = {
+  const someFunc = useCallback(() => {
+    const { itemSelected } = forgeViewer;
+
+    if (viewer) {
+      viewer.impl.selector.setSelection(
+        [itemSelected],
+        viewer.model
+      );
+    }
+    
+  }, []);
+  const someFunc2 = useCallback(() => {
+    window.Autodesk.Viewing.Initializer(
+      {
         env: "AutodeskProduction",
         api: "derivativeV2", // TODO: for models uploaded to EMEA change this option to 'derivativeV2_EU'
         getAccessToken: getForgeToken
-      }
-      window.Autodesk.Viewing.Initializer(
-        enviroment,
-        () => {
-          
-          const documentId = `urn:${urn}`;
-          // console.log(viewerApp)
-          if (viewerApp) {
-            // console.log('viewerApp--->',viewerApp)
-            viewerApp.registerViewer(
-              viewerApp.k3D,
-              window.Autodesk.Viewing.Private.GuiViewer3D
-            );
-            viewerApp.loadDocument(
-              documentId,
-              onDocumentLoadSuccess,
-              onDocumentLoadFailure
-            );
-          }
-        }
-      )
-  }
-  const cc = async (viewer, callback) => {
-    console.log(viewer)
-    setViewer(viewer)
-    await callback()
-  }
-  const dd = () => {
-    setEvents()
-  }
+      },
+      callback(viewerApp)
+    )
+    
+  }, []);
+
 
   useEffect( 
     () => {
 
       getViewerAccess(dispatch);
 
-      if (viewer) {
-        viewer.impl.selector.setSelection(
-          [forgeViewer.itemSelected],
-          viewer.model
-        );
+      return () => {
+        if (viewer) {
+          viewer.finish();
+        }
+      };
+
+  }, [])
+
+  useEffect(
+    () => {
+      someFunc(forgeViewer.itemSelected)
+  }, [forgeViewer.itemSelected, someFunc])
+
+  useEffect(
+    () => {
+
+      setViewerApp({
+        viewerApp: new window.Autodesk.Viewing.ViewingApplication(
+          "MyViewerDiv"
+        )
+      })
+      someFunc2(forgeViewer.viewer_token)
+
+  }, [someFunc2])
+
+
+
+  // useEffect(
+  //   () => {
+
+  // }, [viewerApp])
+  const someFunc3 = useCallback(() => {
+    console.log('viewerUseEffect----->>>>>>' , viewer)
+    viewer.addEventListener(
+      window.Autodesk.Viewing.SELECTION_CHANGED_EVENT,
+      () => {
+        let currSelection = viewer.getSelection();
+        setItemSelected(currSelection)
       }
+    );
+    
+  }, [viewer]);
 
 
-    return () => {
-      if (viewer) {
-        viewer.finish();
-      }
-    };
+  useEffect(
+    () => {
 
-  }, [viewer])
+      setViewer(viewer)
+      someFunc3(viewer)
 
+  }, [viewer, someFunc3])
+
+  const callback = () => {
+
+    // console.log('MyViewerDiv: ------> ', viewerApp)
+    // console.log(viewerApp.k3D)
+    console.log(viewerApp)
+    // console.log(forgeViewer)
+    // console.log(displayViewer)
+    const documentId = `urn:${props.urn}`;
+    if (viewerApp) {
+      
+      viewerApp.registerViewer(
+        viewerApp.k3D,
+        window.Autodesk.Viewing.Private.GuiViewer3D
+      );
+      viewerApp.loadDocument(
+        documentId,
+        onDocumentLoadSuccess,
+        onDocumentLoadFailure
+      );
+    }
+  };
 
   const getForgeToken = (callback) => {
       const { viewer_token } = forgeViewer;
@@ -95,9 +136,11 @@ function ViewerItem (props) {
 
   const onDocumentLoadSuccess = (doc) => {
       // Gets all the possibles viewables
-      // console.log(viewerApp)
+
+      
+
       const viewables = viewerApp.bubble.search({ type: "geometry" });
-    
+      // console.log('doc---------->>' , viewables)
 
       // Selects the viewable that will be displayed, in this case the first, [0], in the array viewables
       viewerApp.selectItem(
@@ -109,7 +152,9 @@ function ViewerItem (props) {
 
   const onItemLoadSuccess = (viewer, item) => {
       // Event fired if the viewer is setup without error, sets the viewer to the state
-      cc(viewer, dd)
+      // console.log('viewer----->>>>>>' , viewer)
+      setViewer(viewer)
+      
   };
 
   const onItemLoadFail = (viewerErrorCode) => {
@@ -129,28 +174,27 @@ function ViewerItem (props) {
       );
   };
 
-  const setEvents = () => {
-      // Event for selection
-      let onSelectionBinded = onSelectionEvent()
-      viewer.addEventListener(
-        window.Autodesk.Viewing.SELECTION_CHANGED_EVENT,
-        onSelectionBinded
-      );
-  }
+  // const setEvents = () => {
+  //     // Event for selection
 
-  const onSelectionEvent = () => {
-      // console.log('viewer--->',viewer)
-      let currSelection = viewer.getSelection();
-      setItemSelected(currSelection)
-  }
+  //     // viewer.addEventListener(
+  //     //   window.Autodesk.Viewing.SELECTION_CHANGED_EVENT,
+  //     //   () => {
+  //     //     let currSelection = viewer.getSelection();
+  //     //     setItemSelected(currSelection)
+  //     //   }
+  //     // );
+      
+  // }
+
     
   const canvasStyle = {
     position: "fixed",
-    left: "40vw",
-    right: "0px",
-    top: "100px",
-    bottom: "0px",
-    zIndex: "1",
+    left: "100px",
+    right: "120px",
+    top: "180px",
+    bottom: "100px",
+    zIndex: "-1",
     backgroundColor: "#D8E1EA"
   };
   return (

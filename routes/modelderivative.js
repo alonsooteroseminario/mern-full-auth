@@ -14,7 +14,7 @@ String.prototype.toBase64 = function() {
   return new Buffer.from(this).toString("base64")
 };
 
-router.post("/convert", function(req, res) {
+router.post("/convert", async function(req, res) {
   var urn = req.body.urn;
   var urn = urn.toBase64();
 
@@ -23,7 +23,7 @@ router.post("/convert", function(req, res) {
   var format_type = "svf";
   var format_views = ["2d", "3d"];
 
-  Axios({
+  await Axios({
     method: "POST",
     url: "https://developer.api.autodesk.com/modelderivative/v2/designdata/job",
     headers: {
@@ -56,13 +56,13 @@ router.post("/convert", function(req, res) {
     });
 });
 
-router.get("/treeInfo", function(req, res) {
+router.get("/treeInfo", async function(req, res) {
   var urn = req.query.urn;
   var urn = urn.toBase64();
 
   const access_token = req.query.access_token;
 
-  Axios({
+  await Axios({
     method: "GET",
     url:
       "https://developer.api.autodesk.com/modelderivative/v2/designdata/" +
@@ -88,7 +88,7 @@ router.get("/treeInfo", function(req, res) {
     });
 });
 
-router.get("/objectInfo", function(req, res) {
+router.get("/objectInfo", async function(req, res) {
   var urn = req.query.urn;
   var urn = urn.toBase64();
   var guid = req.query.guid;
@@ -98,7 +98,7 @@ router.get("/objectInfo", function(req, res) {
   console.log(`urn: ${urn}`);
   console.log(`guid: ${guid}`);
 
-  Axios({
+  await Axios({
     method: "GET",
     url:
       "https://developer.api.autodesk.com/modelderivative/v2/designdata/" +

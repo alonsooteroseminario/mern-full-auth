@@ -35,12 +35,7 @@ function Main() {
     mainContent = <CircleSpinner />;
   } else {
     mainContent = (
-      <>
-        <div className="container">
-          <Viewer objectInfo={objectInfo} urn={urn} />
-        </div>
-      </>
-                
+      <Viewer objectInfo={objectInfo} urn={urn} />
     );
   }
   return ( 
