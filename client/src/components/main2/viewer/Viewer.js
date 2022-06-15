@@ -14,12 +14,14 @@ function Viewer(props) {
   };
   return (
     <div className="Viewer">
-      <div className="text-left pl-5">
-        <h3> Viewer Component </h3>
-        <Tree objectInfo={object1} />
-      </div>
-      <div className="">
-        <ViewerItem displayViewer={true} id="viewer" urn={urn} />
+      <div class="container">
+        <div class="row">
+          <h3> Viewer Component </h3>
+            <Tree objectInfo={object1} />
+        </div>
+        <div class="row">
+            <ViewerItem displayViewer={true} id="viewer" urn={urn} />
+        </div>
       </div>
     </div>
   );

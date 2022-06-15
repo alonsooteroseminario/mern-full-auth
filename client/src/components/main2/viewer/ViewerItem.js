@@ -9,8 +9,6 @@ function ViewerItem (props) {
 
   const { displayViewer, urn } = props;
 
-  console.log('urn---->', urn)
-
   const [viewerApp, setViewerApp] = useState(new window.Autodesk.Viewing.ViewingApplication(
     "MyViewerDiv"
   ))
@@ -38,7 +36,7 @@ function ViewerItem (props) {
         api: "derivativeV2", // TODO: for models uploaded to EMEA change this option to 'derivativeV2_EU'
         getAccessToken: getForgeToken
       },
-      callback(viewerApp)
+      callback()
     )
     
   }, []);
@@ -65,14 +63,12 @@ function ViewerItem (props) {
   useEffect(
     () => {
 
-      setViewerApp({
-        viewerApp: new window.Autodesk.Viewing.ViewingApplication(
-          "MyViewerDiv"
-        )
-      })
+      setViewerApp(new window.Autodesk.Viewing.ViewingApplication(
+        "MyViewerDiv"
+      ))
       someFunc2(forgeViewer.viewer_token)
 
-  }, [someFunc2])
+  }, [forgeViewer.viewer_token])
 
 
 
@@ -80,32 +76,28 @@ function ViewerItem (props) {
   //   () => {
 
   // }, [viewerApp])
-  const someFunc3 = useCallback(() => {
-    console.log('viewerUseEffect----->>>>>>' , viewer)
-    viewer.addEventListener(
-      window.Autodesk.Viewing.SELECTION_CHANGED_EVENT,
-      () => {
-        let currSelection = viewer.getSelection();
-        setItemSelected(currSelection)
-      }
-    );
-    
-  }, [viewer]);
-
 
   useEffect(
     () => {
 
-      setViewer(viewer)
-      someFunc3(viewer)
+      if(viewer != null){
+        console.log('viewer----->>>>>>' , viewer)
+        viewer.addEventListener(
+          window.Autodesk.Viewing.SELECTION_CHANGED_EVENT,
+          () => {
+            let currSelection = viewer.getSelection();
+            setItemSelected(currSelection)
+          }
+        );
+      }
 
-  }, [viewer, someFunc3])
+  }, [viewer])
 
   const callback = () => {
 
     // console.log('MyViewerDiv: ------> ', viewerApp)
     // console.log(viewerApp.k3D)
-    console.log(viewerApp)
+    // console.log(viewerApp)
     // console.log(forgeViewer)
     // console.log(displayViewer)
     const documentId = `urn:${props.urn}`;
@@ -138,10 +130,10 @@ function ViewerItem (props) {
       // Gets all the possibles viewables
 
       
-
+      
       const viewables = viewerApp.bubble.search({ type: "geometry" });
       // console.log('doc---------->>' , viewables)
-
+      
       // Selects the viewable that will be displayed, in this case the first, [0], in the array viewables
       viewerApp.selectItem(
         viewables[0],
@@ -155,6 +147,7 @@ function ViewerItem (props) {
       // console.log('viewer----->>>>>>' , viewer)
       setViewer(viewer)
       
+      // console.log('item----->>>>>>' , item)
   };
 
   const onItemLoadFail = (viewerErrorCode) => {
@@ -174,27 +167,14 @@ function ViewerItem (props) {
       );
   };
 
-  // const setEvents = () => {
-  //     // Event for selection
-
-  //     // viewer.addEventListener(
-  //     //   window.Autodesk.Viewing.SELECTION_CHANGED_EVENT,
-  //     //   () => {
-  //     //     let currSelection = viewer.getSelection();
-  //     //     setItemSelected(currSelection)
-  //     //   }
-  //     // );
-      
-  // }
-
     
   const canvasStyle = {
     position: "fixed",
     left: "100px",
     right: "120px",
-    top: "180px",
+    top: "350px",
     bottom: "100px",
-    zIndex: "-1",
+    zIndex: "0",
     backgroundColor: "#D8E1EA"
   };
   return (
