@@ -8,25 +8,33 @@ import Spinner from "../common/Spinner";
 
 function Models() {
 
-  const [uploadFile, setUploadFile] = useState("")
+  const [uploadFile, setUploadFile] = useState(null)
   
 
   useEffect( () => {
 
     getModels(bucketKey, dispatch);
 
-  }, [getModels])
+  }, [])
+
+  useEffect( () => {
+
+
+
+    setUploadFile(uploadFile)
+
+  }, [uploadFile])
 
   const handleFile = (e) => {
-
     setUploadFile(e.target.files[0])
 
   }
 
   const handleUpload = () => {
-
-    uploadModel(uploadFile, bucketKey);
+      console.log(uploadFile)
+      uploadModel(uploadFile, bucketKey, dispatch);
   }
+
 
   const { bucketKey } = useParams()
 

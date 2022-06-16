@@ -32,7 +32,7 @@ export const createBucket = (bucketKey, policyKey, history) => dispatch => {
       params: { access_token: localStorage.access_token }
     })
     .then(res => {
-      dispatch(getBuckets());
+      dispatch(getBuckets(dispatch));
       history.push("/");
     })
     .catch(err => console.log(err));
@@ -57,13 +57,26 @@ export const getModels = (bucketKey, dispatch) => {
 // Upload Model
 export const uploadModel = (file, bucketKey, dispatch) => {
   const data = new FormData();
-  data.append("fileToUpload", file, file.name);
-  data.append("access_token", localStorage.access_token);
-  data.append("bucketKey", bucketKey);
-  // console.log(data)
+  data.append('fileToUpload', file, file.name);
+  data.append('access_token', localStorage.access_token);
+  data.append('bucketKey', bucketKey);
+
+  let accessToken = localStorage.access_token;
+  let fileName = file.name;
+
+  let obj = {
+    accessToken,
+    bucketKey
+  }
+
+  console.log('file---->',file)
+  // console.log('file.name---->',file.name)
+  // console.log('localStorage.access_token---->',localStorage.access_token)
+  // console.log('bucketKey---->',bucketKey)
+
   axios
-    .put("/api/datamanagement/upload", data)
-    .then(res => dispatch(getModels(bucketKey)))
+    .put(`/api/datamanagement/upload/${accessToken}/${bucketKey}`, data)
+    .then(res => dispatch(getModels(bucketKey, dispatch)))
     .catch(err => console.log(err));
 };
 

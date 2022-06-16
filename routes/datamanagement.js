@@ -90,22 +90,27 @@ var multer = require("multer"); // To handle file upload
 var upload = multer({ dest: "tmp/" }); // Save file into local /tmp folder
 
 // Route /api/forge/datamanagement/bucket/upload
-router.put("/upload", upload.single("fileToUpload"), function(req, res) {
-  const bucketKey = req.body.bucketKey;
-  const access_token = req.body.access_token;
+router.put("/upload/:accessToken/:bucketKey", upload.single("fileToUpload"), function(req, res) {
+  const bucketKey = req.params.bucketKey;
+  const access_token = req.params.accessToken;
   var fs = require("fs"); // Node.js File system for reading files
-  console.log(req.body.path)
-  fs.readFile(req.file.path, function(err, filecontent) {
+  
+
+  console.log(req.files.fileToUpload.tempFilePath)
+  console.log(req.files.fileToUpload.name)
+  console.log('access_token------->', access_token)
+  console.log('bucketKey------->', bucketKey)
+  fs.readFile(req.files.fileToUpload.tempFilePath, function(err, filecontent) {
     Axios({
       method: "PUT",
       url:
         "https://developer.api.autodesk.com/oss/v2/buckets/" +
         encodeURIComponent(bucketKey) +
         "/objects/" +
-        encodeURIComponent(req.file.originalname),
+        encodeURIComponent(req.files.fileToUpload.name),
       headers: {
         Authorization: "Bearer " + access_token,
-        "Content-Disposition": req.file.originalname,
+        "Content-Disposition": req.files.fileToUpload.name,
         "Content-Length": filecontent.length
       },
       data: filecontent,
