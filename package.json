@@ -31,6 +31,7 @@
     "express-fileupload": "^1.2.0",
     "forge-apis": "^0.8.6",
     "googleapis": "^61.0.0",
+    "heroku": "^7.60.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
     "multer": "^1.4.4",
