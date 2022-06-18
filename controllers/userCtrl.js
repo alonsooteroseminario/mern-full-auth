@@ -30,17 +30,16 @@ const userCtrl = {
 
             const passwordHash = await bcrypt.hash(password, 12)
 
-            const newUser = {
+            const inputUser = {
                 name, email, password: passwordHash
             }
 
-            const activation_token = createActivationToken(newUser)
+            const newUser = new Users(inputUser)
 
-            const url = `${CLIENT_URL}/user/activate/${activation_token}`
-            sendMail(email, url, "Verify your email address")
+            await newUser.save()
 
-
-            res.json({msg: "Register Success! Please activate your email to start."})
+            res.json({msg: "Account has been activated!"})
+            
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

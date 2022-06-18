@@ -96,10 +96,10 @@ router.put("/upload/:accessToken/:bucketKey", upload.single("fileToUpload"), fun
   var fs = require("fs"); // Node.js File system for reading files
   
 
-  console.log(req.files.fileToUpload.tempFilePath)
-  console.log(req.files.fileToUpload.name)
-  console.log('access_token------->', access_token)
-  console.log('bucketKey------->', bucketKey)
+  // console.log(req.files.fileToUpload.tempFilePath)
+  // console.log(req.files.fileToUpload.name)
+  // console.log('access_token------->', access_token)
+  // console.log('bucketKey------->', bucketKey)
   fs.readFile(req.files.fileToUpload.tempFilePath, function(err, filecontent) {
     Axios({
       method: "PUT",

@@ -9,13 +9,20 @@ function ModelItem(props) {
 
   const handleClick = (bucketKey, objectKey, dispatch) => {
     // deleteModel(bucketKey, objectKey, dispatch);
+    // console.log(bucketKey)
+    // console.log(objectKey)
+
   }
 
   const { objectKey, objectId, size, bucketKey } = props;
 
+  const style = {
+    zIndex: "-1",
+  };
+
   return ( 
       <>
-        <div className="container border rounded">
+        <div className="container border rounded" style={style}>
           <div className="row">
             <div className="col-md-10">
               <div className="row">

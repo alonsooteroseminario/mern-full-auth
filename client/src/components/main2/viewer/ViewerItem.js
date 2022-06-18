@@ -71,17 +71,11 @@ function ViewerItem (props) {
   }, [forgeViewer.viewer_token])
 
 
-
-  // useEffect(
-  //   () => {
-
-  // }, [viewerApp])
-
   useEffect(
     () => {
 
       if(viewer != null){
-        console.log('viewer----->>>>>>' , viewer)
+        // console.log('viewer----->>>>>>' , viewer)
         viewer.addEventListener(
           window.Autodesk.Viewing.SELECTION_CHANGED_EVENT,
           () => {
@@ -167,12 +161,11 @@ function ViewerItem (props) {
       );
   };
 
-    
   const canvasStyle = {
     position: "fixed",
     left: "100px",
-    right: "120px",
-    top: "350px",
+    right: "100px",
+    top: "100px",
     bottom: "100px",
     zIndex: "0",
     backgroundColor: "#D8E1EA"

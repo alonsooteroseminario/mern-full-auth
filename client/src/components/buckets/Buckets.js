@@ -8,22 +8,29 @@ function Buckets() {
   const auth = useSelector(state => state.auth)
   const forgeAuth = useSelector(state => state.forgeAuth)
   const forgeManagement = useSelector( state => state.forgeManagement)
-
+  const users = useSelector(state => state.users)
+  const [id, setId] = useState('')
+  
   const dispatch = useDispatch()
 
-  const {isLogged, isAdmin} = auth
+  const { user, isLogged, isAdmin} = auth
   const { isAuthenticated, forgeUser} = forgeAuth
   const { buckets, loading } = forgeManagement
-
+  // console.log('buckets------>',buckets)
   let bucketsContent;
 
   useEffect( () => {
     if (localStorage.access_token) {
         getBuckets(dispatch)
-        
+
+        setId(user._id)
     }
 
   }, [getBuckets, dispatch] )
+
+  useEffect(()=>{
+
+  }, [id])
 
   if (buckets === null || loading){
       bucketsContent = <Spinner />;
@@ -34,7 +41,7 @@ function Buckets() {
               <div>
                 {
                   buckets.map((bucket, index) => {
-                      if(bucket.bucketKey.includes('vpeq0gtce0timv0vbhy5s1yqpj8a2eag-weclash')){
+                      if(bucket.bucketKey.includes(`vpeq0gtce0timv0vbhy5s1yqpj8a2eag-${id}`)){
                         return (<BucketItem key={index} bucket={bucket} />)
                       }
                   })

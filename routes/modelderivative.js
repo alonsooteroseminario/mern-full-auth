@@ -95,8 +95,8 @@ router.get("/objectInfo", async function(req, res) {
 
   const access_token = req.query.access_token;
 
-  console.log(`urn: ${urn}`);
-  console.log(`guid: ${guid}`);
+  // console.log(`urn: ${urn}`);
+  // console.log(`guid: ${guid}`);
 
   await Axios({
     method: "GET",

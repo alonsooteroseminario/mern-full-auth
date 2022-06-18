@@ -31,7 +31,7 @@ function Models() {
   }
 
   const handleUpload = () => {
-      console.log(uploadFile)
+      // console.log(uploadFile)
       uploadModel(uploadFile, bucketKey, dispatch);
   }
 

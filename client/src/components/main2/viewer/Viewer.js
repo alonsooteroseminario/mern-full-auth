@@ -13,12 +13,12 @@ function Viewer(props) {
     objects: objectInfo
   };
   return (
-    <div className="Viewer">
+    <div class="landing-page">
       <div class="container">
-        <div class="row">
+        {/* <div class="row">
           <h3> Viewer Component </h3>
             <Tree objectInfo={object1} />
-        </div>
+        </div> */}
         <div class="row">
             <ViewerItem displayViewer={true} id="viewer" urn={urn} />
         </div>
