@@ -41,10 +41,12 @@ function Buckets() {
               <div>
                 {
                   buckets.map((bucket, index) => {
-                      if(bucket.bucketKey.includes(`vpeq0gtce0timv0vbhy5s1yqpj8a2eag-${id}`)){
+                      if(bucket.bucketKey.includes(`vpeq0gtce0timv0vbhy5s1yqpj8a2eag-${id}`) || 
+                        bucket.bucketKey.includes(`persistencia`) ){
                         return (<BucketItem key={index} bucket={bucket} />)
                       }
                   })
+                  
                 }
               </div>
             );

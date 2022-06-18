@@ -38,12 +38,12 @@ function ModelItem(props) {
             >
               Load App
             </Link>
-            <button
+            {/* <button
               className="btn btn-sm btn-danger col-md-1"
               onClick={handleClick(bucketKey, objectKey, dispatch)}
             >
               Delete
-            </button>
+            </button> */}
           </div>
         </div>
       </> 

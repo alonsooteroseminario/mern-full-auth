@@ -44,6 +44,7 @@ function Models() {
   const { models, loading } = forgeManagement
 
   let bucketContent;
+  let bucketPersistencia;
 
   if (models === null || loading) {
     bucketContent = <Spinner />;
@@ -65,6 +66,24 @@ function Models() {
     }
   }
 
+  if(bucketKey=="persistencia"){
+    bucketPersistencia = <div></div>
+  }else{
+    bucketPersistencia = <div className="form-group m-5">
+                            <label htmlFor="uploadModel"> Upload a Model</label>
+                              <input
+                                type="file"
+                                id="uploadModel"
+                                onChange={handleFile}
+                                placeholder="Upload file..."
+                              />
+                              <button className="btn btn-dark" onClick={handleUpload}>
+                                {" "}
+                                Upload{" "}
+                              </button>
+                        </div>
+  }
+
   return ( 
       <>
         <div className="container">
@@ -75,19 +94,8 @@ function Models() {
           </div>
 
           {bucketContent}
-          <div className="form-group m-5">
-            <label htmlFor="uploadModel"> Upload a Model</label>
-            <input
-              type="file"
-              id="uploadModel"
-              onChange={handleFile}
-              placeholder="Upload file..."
-            />
-            <button className="btn btn-dark" onClick={handleUpload}>
-              {" "}
-              Upload{" "}
-            </button>
-          </div>
+          {bucketPersistencia}
+
         </div>
       </> 
   );

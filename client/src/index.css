@@ -14,7 +14,7 @@ code {
     monospace;
 }
 .App{
-  max-width: 1200px;
+  max-width: 100%;
   width: 100%;
   min-height: 100vh;
   box-shadow: 0 0 20px #eee;

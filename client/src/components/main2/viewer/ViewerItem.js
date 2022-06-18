@@ -163,10 +163,10 @@ function ViewerItem (props) {
 
   const canvasStyle = {
     position: "fixed",
-    left: "100px",
-    right: "100px",
+    left: "0px",
+    right: "0px",
     top: "100px",
-    bottom: "100px",
+    bottom: "0px",
     zIndex: "0",
     backgroundColor: "#D8E1EA"
   };
