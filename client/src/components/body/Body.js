@@ -42,9 +42,9 @@ function Body() {
                 <Route path="/profile" component={isLogged ? Profile : Home} exact />
                 <Route path="/edit_user/:id" component={(isAdmin && isAuthenticated) ? EditUser : Home} exact />
                 
-                <Route path="/buckets" component={(isLogged && isAuthenticated) ? Buckets : Home} exact />
-                <Route path="/bucket/detail/:bucketKey" component={(isLogged && isAuthenticated) ? Models : Home} exact />
-                <Route path="/bucket/detail/:bucketKey/:objectId/:filename" component={(isLogged && isAuthenticated) ? Main : Home} exact />
+                <Route path="/buckets" component={isAuthenticated ? Buckets : Home} exact />
+                <Route path="/bucket/detail/:bucketKey" component={isAuthenticated ? Models : Home} exact />
+                <Route path="/bucket/detail/:bucketKey/:objectId/:filename" component={isAuthenticated ? Main : Home} exact />
 
             </Switch>
         </section>

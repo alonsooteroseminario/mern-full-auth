@@ -45,6 +45,10 @@ function Login() {
         }
     }
 
+    const handleDefaultLogin = (e) => {
+        getForgeAccess(history, dispatch);
+      }
+
     return (
         <div className="login_page">
             <h2>Login</h2>
@@ -70,6 +74,13 @@ function Login() {
                 </div>
             </form>
             <p>New Customer? <Link to="/register">Register</Link></p>
+            <button
+                className="btn btn-sm btn-secondary btn-block text-uppercase mt-5"
+                type="submit"
+                onClick={handleDefaultLogin}
+                >
+                  Sign in with the default account
+            </button>
         </div>
     )
 }
