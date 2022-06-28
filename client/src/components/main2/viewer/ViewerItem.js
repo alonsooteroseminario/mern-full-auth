@@ -36,10 +36,10 @@ function ViewerItem (props) {
         api: "derivativeV2", // TODO: for models uploaded to EMEA change this option to 'derivativeV2_EU'
         getAccessToken: getForgeToken
       },
-      callback()
+      callback(viewerApp)
     )
     
-  }, []);
+  }, [viewerApp]);
 
 
   useEffect( 
@@ -87,13 +87,14 @@ function ViewerItem (props) {
 
   }, [viewer])
 
-  const callback = () => {
+  const callback = (viewerApp) => {
 
     // console.log('MyViewerDiv: ------> ', viewerApp)
     // console.log(viewerApp.k3D)
     // console.log(viewerApp)
     // console.log(forgeViewer)
     // console.log(displayViewer)
+    console.log(props.urn)
     const documentId = `urn:${props.urn}`;
     if (viewerApp) {
       
@@ -156,8 +157,11 @@ function ViewerItem (props) {
   const onDocumentLoadFailure = (viewerErrorCode) => {
       // Fires if the loaded of the svf file failes
       console.log(viewerErrorCode);
+      // jQuery("#MyViewerDiv").html(
+      //   "<p>There is an error fetching the translated SVF file. Please try refreshing the page.</p>"
+      // );
       jQuery("#MyViewerDiv").html(
-        "<p>There is an error fetching the translated SVF file. Please try refreshing the page.</p>"
+        "<p>Waiting to translate the SVF file. If take to much time, please try refreshing the page.</p>"
       );
   };
 
