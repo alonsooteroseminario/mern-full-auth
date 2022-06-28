@@ -11,25 +11,34 @@
     "client-install": "cd client && npm install",
     "install-all": "concurrently \"npm run server-install\"  \"npm run client-install\"",
     "dev": "concurrently \"npm run server\"  \"npm run client\"",
+    "prod": "export NODE_ENV=production && node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "cloudinary": "^1.23.0",
     "concurrently": "^5.3.0",
     "cookie-parser": "^1.4.5",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
+    "forge-apis": "^0.8.6",
     "googleapis": "^61.0.0",
+    "heroku": "^7.60.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
-    "node-fetch": "^2.6.1",
-    "nodemailer": "^6.4.14"
+    "multer": "^1.4.4",
+    "node-fetch": "^2.6.7",
+    "nodemailer": "^6.7.2",
+    "querystring": "^0.2.1",
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "nodemon": "^2.0.5"

@@ -4,9 +4,7 @@ import axios from 'axios'
 import {showErrMsg, showSuccessMsg} from '../../utils/notification/Notification'
 import {dispatchLogin} from '../../../redux/actions/authAction'
 import {useDispatch} from 'react-redux'
-import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
-
+import { getForgeAccess } from "../../../redux/actions/forgeAuthActions";
 
 const initialState = {
     email: '',
@@ -32,49 +30,24 @@ function Login() {
         e.preventDefault()
         try {
             const res = await axios.post('/user/login', {email, password})
+            // console.log(res)
             setUser({...user, err: '', success: res.data.msg})
-
             localStorage.setItem('firstLogin', true)
 
             dispatch(dispatchLogin())
-            history.push("/")
+            // history.push("/")
+
+            getForgeAccess(history, dispatch)
 
         } catch (err) {
-            err.response.data.msg && 
-            setUser({...user, err: err.response.data.msg, success: ''})
+            // err.response.data.msg && 
+            // setUser({...user, err: err.response.data.msg, success: ''})
         }
     }
 
-    const responseGoogle = async (response) => {
-        try {
-            const res = await axios.post('/user/google_login', {tokenId: response.tokenId})
-
-            setUser({...user, error:'', success: res.data.msg})
-            localStorage.setItem('firstLogin', true)
-
-            dispatch(dispatchLogin())
-            history.push('/')
-        } catch (err) {
-            err.response.data.msg && 
-            setUser({...user, err: err.response.data.msg, success: ''})
-        }
-    }
-
-    const responseFacebook = async (response) => {
-        try {
-            const {accessToken, userID} = response
-            const res = await axios.post('/user/facebook_login', {accessToken, userID})
-
-            setUser({...user, error:'', success: res.data.msg})
-            localStorage.setItem('firstLogin', true)
-
-            dispatch(dispatchLogin())
-            history.push('/')
-        } catch (err) {
-            err.response.data.msg && 
-            setUser({...user, err: err.response.data.msg, success: ''})
-        }
-    }
+    const handleDefaultLogin = (e) => {
+        getForgeAccess(history, dispatch);
+      }
 
     return (
         <div className="login_page">
@@ -100,27 +73,14 @@ function Login() {
                     <Link to="/forgot_password">Forgot your password?</Link>
                 </div>
             </form>
-
-            <div className="hr">Or Login With</div>
-
-            <div className="social">
-                <GoogleLogin
-                    clientId="977882615520-aesnk5l78nsc7615eot8ts13m2legebm.apps.googleusercontent.com"
-                    buttonText="Login with google"
-                    onSuccess={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                />
-                
-                <FacebookLogin
-                appId="Your facebook app id"
-                autoLoad={false}
-                fields="name,email,picture"
-                callback={responseFacebook} 
-                />
-
-            </div>
-
             <p>New Customer? <Link to="/register">Register</Link></p>
+            <button
+                className="btn btn-sm btn-secondary btn-block text-uppercase mt-5"
+                type="submit"
+                onClick={handleDefaultLogin}
+                >
+                  Sign in with the default account
+            </button>
         </div>
     )
 }

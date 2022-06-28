@@ -1,26 +1,31 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import './home.css'
+import FeatureServices from '../../../widgets/featurebox/services';
+import Herosection from '../../../widgets/herosection/herosection';
 
 function Home() {
     return (
-        <div className="home_page">
-            <h2>Hello everyone!</h2>
-            <p>
-                This site is about user authentication, 
-                so there won't be any other pages here. 
-                If people want to see more about how to 
-                create other websites. You can click on 
-                the link below, visit my youtube channel. 
-                And if you find it useful, please subscribe 
-                for us. Thank you very much!
-            </p>
-            <a href="https://www.youtube.com/c/DevATHTML" target="_blank" 
-            rel="noopener noreferrer">My Youtube</a>
+        <div>
+            <div class="landing-page">
+            <div class="container">
+                <div class="info">
+                <h1>3Draft Viewer</h1>
+                <p>The best communication tool between Office and Contractors on site. </p>
+                <Link
+                    className="btn btn-primary"
+                    to={`/login`}
+                    >
+                    Start
+                </Link>
+                </div>
+                <div class="image">
+                    <img src="https://i.postimg.cc/65QxYYzh/001234.png" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            </div>
 
-            <h3>Build a simple e-commerce site.</h3>
-
-            <a href="https://youtu.be/uXl77UFkrkQ" target="_blank" 
-            rel="noopener noreferrer">Build a Ecommerce</a>
         </div>
     )
 }

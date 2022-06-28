@@ -14,7 +14,7 @@ code {
     monospace;
 }
 .App{
-  max-width: 1200px;
+  max-width: 100%;
   width: 100%;
   min-height: 100vh;
   box-shadow: 0 0 20px #eee;
@@ -41,3 +41,13 @@ button{
 
 /* ----------------- Profile ------------------- */
 @import url("./components/body/profile/profile.css");
+
+body{
+  min-height: 100%;
+  height: 100%;
+  padding-top: 0px; /* space for the top nav bar */
+}
+
+.fill{
+  height: calc(100vh - 100px);
+}
