@@ -29,7 +29,7 @@ function Buckets() {
   }, [getBuckets, dispatch] )
 
   useEffect(()=>{
-
+    console.log(id)
   }, [id])
 
   if (buckets === null || loading){
@@ -37,20 +37,38 @@ function Buckets() {
   } else {
       // Check if logged forge user has buckets
       if (Object.keys(buckets).length > 0) {
-            bucketsContent = (
-              <div>
-                {
-                  buckets.map((bucket, index) => {
-                      if(bucket.bucketKey.includes(`vpeq0gtce0timv0vbhy5s1yqpj8a2eag-${id}`) || 
-                        bucket.bucketKey.includes(`persistencia`) ){
-                        return (<BucketItem key={index} bucket={bucket} />)
-                      }
-                  })
-                  
-                }
-              </div>
-            );
-      } else {
+        if (id == undefined){
+          bucketsContent = (
+            <div>
+              {
+                buckets.map((bucket, index) => {
+                    if(bucket.bucketKey.includes(`persistencia`) ){
+                      return (<BucketItem key={index} bucket={bucket} />)
+                    }
+                })
+                
+              }
+            </div>
+          );
+        }
+        else{
+          bucketsContent = (
+            <div>
+              {
+                buckets.map((bucket, index) => {
+                    if(bucket.bucketKey.includes(`vpeq0gtce0timv0vbhy5s1yqpj8a2eag-${id}`) ){
+                      return (<BucketItem key={index} bucket={bucket} />)
+                    }
+                })
+                
+              }
+            </div>
+          );
+        }
+
+      } 
+      else 
+      {
           bucketsContent = <h2> There are no buckets created yet </h2>;
       }
   }
