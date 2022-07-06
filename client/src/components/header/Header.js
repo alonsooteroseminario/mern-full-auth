@@ -51,11 +51,17 @@ function Header() {
             </div>
 
             <ul style={transForm}>
-                {/* <li>
-                    <Link to="/buckets">
-                    <i className="fas fa-shopping-cart"></i> Buckets
-                    </Link>
-                </li> */}
+                {
+                    isLogged
+                    ? 
+                    <li>
+                        <Link className="nav-link" to="/bucket/create">
+                            Create New Bucket
+                        </Link>
+                    </li>
+                    
+                    :<li></li>
+                }
                 {
                     isLogged
                     ? 
@@ -64,14 +70,16 @@ function Header() {
                         <i className="fas fa-shopping-cart"></i> Buckets
                         </Link>
                     </li>
+                    
                     :<li></li>
                 }
                 {
                     isLogged
                     ? userLink()
                     :<li>
-                        <Link to="/login"><i className="fas fa-user">
-                            </i> Sign in
+                        <Link to="/login">
+                            <i className="fas fa-user">
+                            </i> Sign-in
                         </Link>
                     </li>
                 }

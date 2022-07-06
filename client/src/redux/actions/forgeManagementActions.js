@@ -21,7 +21,7 @@ export const getBuckets = (dispatch) => {
 
 // Create Bucket
 //TODO provar si funciona
-export const createBucket = (bucketKey, policyKey, history) => dispatch => {
+export const createBucket = (bucketKey, policyKey, history, dispatch) => {
   const body = {
     bucketKey,
     policyKey
