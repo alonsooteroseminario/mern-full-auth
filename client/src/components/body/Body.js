@@ -11,6 +11,7 @@ import ResetPass from '../body/auth/ResetPassword'
 import Profile from '../body/profile/Profile'
 import EditUser from '../body/profile/EditUser'
 import Buckets from "../buckets/Buckets";
+import CreateBucket from "../buckets/CreateBucket";
 import Models from "../models/Models";
 import Main from "../main2/Main";
 
@@ -43,6 +44,8 @@ function Body() {
                 <Route path="/edit_user/:id" component={(isAdmin && isAuthenticated) ? EditUser : Home} exact />
                 
                 <Route path="/buckets" component={isAuthenticated ? Buckets : Home} exact />
+                <Route path="/bucket/create" component={isAuthenticated ? CreateBucket : Home} exact />
+
                 <Route path="/bucket/detail/:bucketKey" component={isAuthenticated ? Models : Home} exact />
                 <Route path="/bucket/detail/:bucketKey/:objectId/:filename" component={isAuthenticated ? Main : Home} exact />
 

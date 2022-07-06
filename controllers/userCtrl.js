@@ -30,15 +30,15 @@ const userCtrl = {
 
             const passwordHash = await bcrypt.hash(password, 12)
 
-            const inputUser = {
+            const newUser = {
                 name, email, password: passwordHash
             }
+            const activation_token = createActivationToken(newUser)
 
-            const newUser = new Users(inputUser)
+            const url = `${CLIENT_URL}/user/activate/${activation_token}`
+            sendMail(email, url, "Verify your email address")
 
-            await newUser.save()
-
-            res.json({msg: "Account has been activated!"})
+             res.json({msg: "Register Success! Please activate your email to start."})
             
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -120,12 +120,12 @@ const userCtrl = {
     resetPassword: async (req, res) => {
         try {
             const {password} = req.body
-            console.log(password)
             const passwordHash = await bcrypt.hash(password, 12)
 
             await Users.findOneAndUpdate({_id: req.user.id}, {
                 password: passwordHash
             })
+
 
             res.json({msg: "Password successfully changed!"})
         } catch (err) {
