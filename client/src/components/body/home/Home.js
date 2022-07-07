@@ -7,9 +7,9 @@ import Herosection from '../../../widgets/herosection/herosection';
 function Home() {
     return (
         <div>
-            <div class="landing-page">
-            <div class="container">
-                <div class="info">
+            <div className="landing-page">
+            <div className="container">
+                <div className="info">
                 <h1>3Draft Viewer</h1>
                 <p>The best communication tool between Office and Contractors on site. </p>
                 <Link
@@ -19,10 +19,10 @@ function Home() {
                     Start
                 </Link>
                 </div>
-                <div class="image">
+                <div className="image">
                     <img src="https://i.postimg.cc/65QxYYzh/001234.png" />
                 </div>
-                <div class="clearfix"></div>
+                <div className="clearfix"></div>
             </div>
             </div>
 

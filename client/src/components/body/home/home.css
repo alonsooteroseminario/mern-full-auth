@@ -45,8 +45,9 @@ body {
 /* Start Landing Page */
 
 .landing-page {
-    position: relative;
-    background-color: #FFF;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .landing-page .header-area {

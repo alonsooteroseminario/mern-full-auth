@@ -21,7 +21,6 @@ function CreateBucket () {
 
   const onSubmit =(e) => {
     e.preventDefault();
-
     createBucket(bucketKey, policyKey, history, dispatch);
   }
   return ( 

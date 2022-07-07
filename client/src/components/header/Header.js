@@ -51,7 +51,7 @@ function Header() {
             </div>
 
             <ul style={transForm}>
-                {
+                {/* {
                     isLogged
                     ? 
                     <li>
@@ -61,7 +61,7 @@ function Header() {
                     </li>
                     
                     :<li></li>
-                }
+                } */}
                 {
                     isLogged
                     ? 

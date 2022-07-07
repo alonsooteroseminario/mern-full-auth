@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux'
+import {useParams, useHistory} from 'react-router-dom'
 import { getBuckets } from "../../redux/actions/forgeManagementActions";
 import Spinner from "../common/Spinner";
 import BucketItem from "./BucketItem";
+import { createBucket } from "../../redux/actions/forgeManagementActions";
+
 
 function Buckets() {
   const auth = useSelector(state => state.auth)
@@ -12,12 +15,25 @@ function Buckets() {
   const [id, setId] = useState('')
   
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const { user, isLogged, isAdmin} = auth
   const { isAuthenticated, forgeUser} = forgeAuth
   const { buckets, loading } = forgeManagement
   // console.log('buckets------>',buckets)
+  const [bucketKey, SetBucketKey] = useState(user._id)
+  const [policyKey, SetPolicyKey] = useState('transient')
+
+
   let bucketsContent;
+  let bucketsContent2;
+
+  const onSubmit =(e) => {
+    e.preventDefault();
+    createBucket(bucketKey, policyKey, history, dispatch);
+
+  }
+  let bucketsContentButton;
 
   useEffect( () => {
     if (localStorage.access_token) {
@@ -29,7 +45,7 @@ function Buckets() {
   }, [getBuckets, dispatch] )
 
   useEffect(()=>{
-    console.log(id)
+    // console.log(id)
   }, [id])
 
   if (buckets === null || loading){
@@ -38,6 +54,18 @@ function Buckets() {
       // Check if logged forge user has buckets
       if (Object.keys(buckets).length > 0) {
         if (id == undefined){
+          if(isLogged){
+            bucketsContentButton = (
+              <div>
+                  <form className="form-signin" onSubmit={onSubmit}>
+                    <button className="btn btn-primary btn-block text-uppercase" type="submit">
+                       Activar Bucket 
+                    </button>
+                    
+                  </form>
+              </div>
+            );
+          }
           bucketsContent = (
             <div>
               {
@@ -52,11 +80,24 @@ function Buckets() {
           );
         }
         else{
+          // console.log('AQUI')
+          if(isLogged){
+            bucketsContentButton = (
+              <div>
+                  <form className="form-signin" onSubmit={onSubmit}>
+                    <button className="btn btn-primary btn-block text-uppercase" type="submit">
+                       Activar Bucket 
+                    </button>
+                    
+                  </form>
+              </div>
+            );
+          }
           bucketsContent = (
             <div>
               {
                 buckets.map((bucket, index) => {
-                    if(bucket.bucketKey.includes(`vpeq0gtce0timv0vbhy5s1yqpj8a2eag-${id}`) ){
+                    if(bucket.bucketKey.includes(`${id}`) ){
                       return (<BucketItem key={index} bucket={bucket} />)
                     }
                 })
@@ -64,6 +105,22 @@ function Buckets() {
               }
             </div>
           );
+
+          let output = 0
+          for (let n = 0; n < buckets.length; n++) {
+            const bucket = buckets[n];
+            if(!bucket.bucketKey.includes(`${id}`) ){
+              output ++
+            }
+          }
+
+          if(output == buckets.length){
+            bucketsContent = (
+              <div>
+                {bucketsContentButton}
+              </div>
+            )
+          }
         }
 
       } 
@@ -73,15 +130,17 @@ function Buckets() {
       }
   }
 
-
   return ( 
       <>
         <div className="buckets">
           {/* <h1> buckets </h1> */}
           {bucketsContent}
+
         </div>
       </> 
   );
+
+
 }
 
 export default Buckets;

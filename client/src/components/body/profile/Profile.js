@@ -186,6 +186,7 @@ function Profile() {
                 <h2>{isAdmin ? "Users" : "My Orders"}</h2>
 
                 <div style={{overflowX: "auto"}}>
+                    {isAdmin ?                     
                     <table className="customers">
                         <thead>
                             <tr>
@@ -221,7 +222,8 @@ function Profile() {
                                 ))
                             }
                         </tbody>
-                    </table>
+                    </table> : 
+                    ""}
                 </div>
             </div>
         </div>

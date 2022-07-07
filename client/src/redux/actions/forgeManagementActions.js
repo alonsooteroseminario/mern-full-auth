@@ -21,13 +21,13 @@ export const getBuckets = (dispatch) => {
 
 // Create Bucket
 //TODO provar si funciona
-export const createBucket = (bucketKey, policyKey, history, dispatch) => {
+export const createBucket = async (bucketKey, policyKey, history, dispatch) => {
   const body = {
     bucketKey,
     policyKey
   };
 
-  axios
+  await axios
     .post("/api/datamanagement/create", body, {
       params: { access_token: localStorage.access_token }
     })
