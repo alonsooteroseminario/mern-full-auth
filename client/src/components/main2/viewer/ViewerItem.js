@@ -172,7 +172,8 @@ function ViewerItem (props) {
     top: "100px",
     bottom: "0px",
     zIndex: "0",
-    backgroundColor: "#D8E1EA"
+    backgroundColor: "#D8E1EA",
+    display: "flex"
   };
   return (
     <div style={!displayViewer ? { visibility: "hidden" } : {}}>
