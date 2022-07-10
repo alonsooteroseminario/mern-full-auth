@@ -27,6 +27,7 @@ function Header() {
             </Link>
             <ul className="dropdown">
                 <li><Link to="/profile">Profile</Link></li>
+                <li><Link to="/dashboard">Dashboard</Link></li>
                 <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
             </ul>
         </li>

@@ -12,6 +12,15 @@ const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 const {CLIENT_URL} = process.env
 
 const userCtrl = {
+    shareviewer: async (req, res) => {
+        
+        const url = `${CLIENT_URL}${req.body.url}`
+
+        sendMail(req.body.email, url, "Shared Link")
+
+        // res.json({msg: "Register Success! Please activate your email to start."})
+        
+    },
     register: async (req, res) => {
         try {
             const {name, email, password} = req.body

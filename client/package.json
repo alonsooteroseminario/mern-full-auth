@@ -20,7 +20,8 @@
     "react-scripts": "3.4.3",
     "react-tabs": "^5.1.0",
     "react-treeview": "^0.4.7",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "usehooks-ts": "^2.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

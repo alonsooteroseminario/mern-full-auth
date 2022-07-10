@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import './home.css'
 import FeatureServices from '../../../widgets/featurebox/services';
 import Herosection from '../../../widgets/herosection/herosection';
-import { getForgeAccess, getForgeAccessFromStart } from "../../../redux/actions/forgeAuthActions";
+import { getForgeAccess, getForgeAccessFromStart, getForgeAccessShared } from "../../../redux/actions/forgeAuthActions";
 import {useSelector, useDispatch} from 'react-redux'
 
 function Home() {
@@ -11,12 +11,29 @@ function Home() {
     const {user, isLogged} = auth
     const dispatch = useDispatch()
     const history = useHistory()
+    const { objectId, filename, bucketKey } = useParams()
+    let persistencia
+
+    if(bucketKey){
+        persistencia = bucketKey
+    }else{
+        persistencia = "persistencia"
+    }
+
 
     const handleDefaultLogin = (e) => {
         getForgeAccess(history, dispatch);
     }
     const handleDefaultLoginFromStart = (e) => {
-        getForgeAccessFromStart (history, dispatch);
+
+        if(objectId || filename){
+            getForgeAccessShared(history, `/bucket/detail/${persistencia}/${objectId}/${filename}`, dispatch);
+
+        }
+        else {
+            getForgeAccessFromStart(history, dispatch);
+
+        }
     }
 
 

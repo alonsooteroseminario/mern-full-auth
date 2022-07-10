@@ -24,6 +24,26 @@ export const getForgeAccess = (history, dispatch ) => {
 };
 
 // Login - Get Forge Access - Auth
+export const getForgeAccessShared = (history, urlToPush, dispatch) => {
+  axios
+    .post("/api/oauth")
+    .then(res => {
+      // Save to localstorage
+      const { access_token } = res.data;
+      // console.log(res.data)
+      // Set token to localStorage
+      localStorage.setItem("access_token", access_token);
+      // Decode token to get user data
+      const decoded = jwt_decode(access_token);
+      // Set current user
+      dispatch(setForgeAccess(decoded));
+      // Go to /dashboard
+      history.push(urlToPush);
+    })
+    .catch(err => console.log(err));
+};
+
+// Login - Get Forge Access - Auth
 export const getForgeAccessFromStart = (history, dispatch ) => {
   axios
     .post("/api/oauth")
