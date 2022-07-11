@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import './home.css'
 import FeatureServices from '../../../widgets/featurebox/services';
@@ -19,6 +19,12 @@ function Home() {
     }else{
         persistencia = "persistencia"
     }
+
+    useEffect(() => {
+        if(isLogged){
+            getForgeAccess(history, dispatch);
+        }
+    },[ isLogged])
 
 
     const handleDefaultLogin = (e) => {

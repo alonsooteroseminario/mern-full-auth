@@ -21,9 +21,11 @@ function ModelItem(props) {
   const {name, email, err} = user
 
   const handleClick = (bucketKey, objectKey, dispatch) => {
-    // deleteModel(bucketKey, objectKey, dispatch);
+    deleteModel(bucketKey, objectKey, dispatch);
+  }
 
-
+  const handleDelete = () => {
+    handleClick(bucketKey, objectKey, dispatch)
   }
 
 
@@ -77,12 +79,14 @@ function ModelItem(props) {
             </Link>
 
             { isLogged ? 
-            <button
+            <Link
               className="btn btn-sm btn-danger col-md-1"
-              onClick={handleClick(bucketKey, objectKey, dispatch)}
+              onClick={
+                handleDelete
+              }
             >
               Delete
-            </button>: 
+            </Link>: 
             ''}
             
             <input 
