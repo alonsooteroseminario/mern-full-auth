@@ -74,13 +74,13 @@ function Login() {
                 </div>
             </form>
             <p>New Customer? <Link to="/register">Register</Link></p>
-            <button
+            {/* <button
                 className="btn btn-sm btn-secondary btn-block text-uppercase mt-5"
                 type="submit"
                 onClick={handleDefaultLogin}
                 >
                   Sign in with the default account
-            </button>
+            </button> */}
         </div>
     )
 }

@@ -9,7 +9,8 @@ import Spinner from "../common/Spinner";
 function Models() {
 
   const [uploadFile, setUploadFile] = useState(null)
-  
+  const auth = useSelector(state => state.auth)
+  const {user, isLogged} = auth
 
   useEffect( () => {
 
@@ -87,11 +88,16 @@ function Models() {
   return ( 
       <>
         <div className="container">
-          <div className="row">
-            <Link to="/buckets" className="btn btn-sm btn-light mb-3 text-left">
-              Back To Bucket List
-            </Link>
-          </div>
+
+          {isLogged ?
+                  <div className="row">
+                    <Link to="/buckets" className="btn btn-sm btn-light mb-3 text-left">
+                      Back To Bucket List
+                    </Link>
+                  </div>:
+                  <div></div>
+          }
+
 
           {bucketContent}
           {bucketPersistencia}

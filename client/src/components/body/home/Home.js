@@ -43,8 +43,7 @@ function Home() {
             <div className="container">
                 <div className="info">
                 <h1>Draft Viewer</h1>
-                <p>The best communication tool between Office and Contractors on site. </p>
-                
+                <h4>Press Start to continue</h4>
                { isLogged ? <Link
                     className="btn btn-primary"
                     to={`/buckets`}
@@ -58,6 +57,8 @@ function Home() {
                     >
                     Start
                 </Link>}
+                <p>The best communication tool between Office and Contractors on site. </p>
+                
 
                 </div>
                 <div className="image">
