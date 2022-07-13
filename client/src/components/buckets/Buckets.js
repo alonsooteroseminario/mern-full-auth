@@ -55,7 +55,9 @@ function Buckets() {
   } else {
       // Check if logged forge user has buckets
       if (Object.keys(buckets).length > 0) {
+
         if (id == undefined){
+          // console.log(id)
           if(isLogged){
             bucketsContentButton = (
               <div>
@@ -68,21 +70,24 @@ function Buckets() {
               </div>
             );
           }
-          bucketsContent = (
-            <div>
-              {
-                buckets.map((bucket, index) => {
-                    if(bucket.bucketKey.includes(`persistencia`) ){
-                      return (<BucketItem key={index} bucket={bucket} />)
-                    }
-                })
-                
-              }
-            </div>
-          );
+          else{
+            bucketsContent = (
+              <div>
+                {
+                  buckets.map((bucket, index) => {
+                      if(bucket.bucketKey.includes(`persistencia`) ){
+                        return (<BucketItem key={index} bucket={bucket} />)
+                      }
+                  })
+                  
+                }
+              </div>
+            );
+          }
+
         }
         else{
-          // console.log('AQUI')
+          
           if(isLogged){
             bucketsContentButton = (
               <div>
@@ -94,19 +99,23 @@ function Buckets() {
                   </form>
               </div>
             );
+            bucketsContent = (
+              
+              <div>
+                {
+                  
+                  buckets.map((bucket, index) => {
+                      if(bucket.bucketKey.includes(`${id}`) ){
+                        console.log('AQUI')
+                        return (<BucketItem key={index} bucket={bucket} />)
+                      }
+                  })
+                  
+                }
+              </div>
+            );
           }
-          bucketsContent = (
-            <div>
-              {
-                buckets.map((bucket, index) => {
-                    if(bucket.bucketKey.includes(`${id}`) ){
-                      return (<BucketItem key={index} bucket={bucket} />)
-                    }
-                })
-                
-              }
-            </div>
-          );
+
 
           let output = 0
           for (let n = 0; n < buckets.length; n++) {
@@ -116,13 +125,13 @@ function Buckets() {
             }
           }
 
-          if(output == buckets.length){
-            bucketsContent = (
-              <div>
-                {bucketsContentButton}
-              </div>
-            )
-          }
+          // if(output == buckets.length){
+          //   bucketsContent = (
+          //     <div>
+          //       {bucketsContentButton}
+          //     </div>
+          //   )
+          // }
         }
 
       } 
