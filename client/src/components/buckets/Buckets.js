@@ -21,8 +21,10 @@ function Buckets() {
   const { isAuthenticated, forgeUser} = forgeAuth
   const { buckets, loading } = forgeManagement
   // console.log('buckets------>',buckets)
-  const [bucketKey, SetBucketKey] = useState(user._id)
+  const [bucketKey, SetBucketKey] = useState(`${user._id}_transient`)
   const [policyKey, SetPolicyKey] = useState('transient')
+  const [bucketKey2, SetBucketKey2] = useState(`${user._id}_persistent`)
+  const [policyKey2, SetPolicyKey2] = useState('persistent')
 
 
   let bucketsContent;
@@ -31,7 +33,7 @@ function Buckets() {
   const onSubmit =(e) => {
     e.preventDefault();
     createBucket(bucketKey, policyKey, history, dispatch);
-
+    createBucket(bucketKey2, policyKey2, history, dispatch);
   }
   let bucketsContentButton;
 
@@ -59,7 +61,7 @@ function Buckets() {
               <div>
                   <form className="form-signin" onSubmit={onSubmit}>
                     <button className="btn btn-primary btn-block text-uppercase" type="submit">
-                       Activar Bucket 
+                       Activar Buckets 
                     </button>
                     
                   </form>

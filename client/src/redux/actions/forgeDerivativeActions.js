@@ -26,7 +26,7 @@ export const getTreeInfo = async (objectId, filename, dispatch) => {
       params: { access_token: localStorage.access_token, urn }
     })
     .then(res => {
-
+      console.log(res.data.data[0])
       const object3d = res.data.data[0]; // Gets the first object from metadata array, the one which is in 3D
       dispatch(getObjectInfo(urn, object3d.guid, dispatch));
     })

@@ -6,8 +6,7 @@ import Tree from "./Tree";
 function Viewer(props) {
 
   const { objectInfo, urn } = props;
-  // console.log('objectInfo---->', objectInfo)
-  // console.log('urn---->', urn)
+
   const object1 = {
     // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
     objects: objectInfo

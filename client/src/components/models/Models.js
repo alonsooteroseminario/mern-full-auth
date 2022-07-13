@@ -47,10 +47,15 @@ function Models() {
   let bucketContent;
   let bucketPersistencia;
 
+
+  // console.log(loading)
+
   if (models === null || loading) {
     bucketContent = <Spinner />;
+    
   } else {
     if (models.length > 0) {
+      console.log(models)
       bucketContent = models
         .filter(model => model.objectKey.indexOf("zzz") === -1)
         .map(model => (
