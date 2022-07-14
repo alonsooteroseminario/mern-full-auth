@@ -51,3 +51,8 @@ body{
 .fill{
   height: calc(100vh - 100px);
 }
+
+.card{
+  width: 18rem;
+  align-items: center;
+}

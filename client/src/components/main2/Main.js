@@ -26,7 +26,7 @@ function Main() {
   const forgeDerivative = useSelector( state => state.forgeDerivative)
   const { objectInfo, urn, loading } = forgeDerivative;
 
-  console.log(forgeDerivative)
+
   // console.log('objectInfo---->', objectInfo)
   // console.log('loading---->', loading)
 

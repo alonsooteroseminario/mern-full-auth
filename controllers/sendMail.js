@@ -36,26 +36,68 @@ const sendEmail = (to, url, txt) => {
         }
     })
 
+    let msgHtml = `
+                    <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+                    <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to ${txt} WeClash Draft Viewer.</h2>
+                    <p>Congratulations! You're almost set to start using Draft Viewer.
+                        Just click the button below to validate your email address.
+                        ${txt}
+                    </p>
+
+                    
+                    <a href=${url} style="background: crimson; text-decoration: none; color: white; 
+                    padding: 10px 20px; margin: 10px 0; display: inline-block;">${txt}</a>
+
+                    <p>If the button doesn't work for any reason, you can also click on the link below:</p>
+
+                    <div>${url}</div>
+                    </div>
+                `
+
+    if(txt == 'Reset your password'){
+        msgHtml = `
+                    <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+                    <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to ${txt} WeClash Draft Viewer.</h2>
+                    <p>You're almost set to reset you password
+                        Just click the button below to validate your email address.
+                        ${txt}
+                    </p>
+
+                    
+                    <a href=${url} style="background: crimson; text-decoration: none; color: white; 
+                    padding: 10px 20px; margin: 10px 0; display: inline-block;">${txt}</a>
+
+                    <p>If the button doesn't work for any reason, you can also click on the link below:</p>
+
+                    <div>${url}</div>
+                    </div>
+                `
+    }
+    if(txt == 'Shared Link'){
+        msgHtml = `
+                    <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+                    <h2 style="text-align: center; text-transform: uppercase;color: teal;">Someone share with you this ${txt} WeClash Draft Viewer.</h2>
+                    <p>You're almost set to see the Shared Link
+                        ${txt}
+                    </p>
+
+                    
+                    <a href=${url} style="background: crimson; text-decoration: none; color: white; 
+                    padding: 10px 20px; margin: 10px 0; display: inline-block;">${txt}</a>
+
+                    <p>If the button doesn't work for any reason, you can also click on the link below:</p>
+
+                    <div>${url}</div>
+                    </div>
+                `
+    }
+
+
     const mailOptions = {
         from: SENDER_EMAIL_ADDRESS,
         to: to,
-        subject: `WeClash ${txt}`,
-        html: `
-            <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
-            <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to ${txt} WeClash 3Draft Viewer.</h2>
-            <p>Congratulations! You're almost set to start using 3Draft Viewer.
-                Just click the button below to validate your email address.
-                ${txt}
-            </p>
-
-            
-            <a href=${url} style="background: crimson; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;">${txt}</a>
-        
-            <p>If the button doesn't work for any reason, you can also click on the link below:</p>
-        
-            <div>${url}</div>
-            </div>
-        `
+        subject: `Hello from WeClash! ${txt}`,
+        html: msgHtml
     }
 
     smtpTransport.sendMail(mailOptions, (err, infor) => {
