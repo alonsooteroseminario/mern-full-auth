@@ -20,7 +20,6 @@ export const getBuckets = (dispatch) => {
 };
 
 // Create Bucket
-//TODO provar si funciona
 export const createBucket = async (bucketKey, policyKey, history, dispatch) => {
   const body = {
     bucketKey,

@@ -55,7 +55,7 @@ function Models() {
     
   } else {
     if (models.length > 0) {
-      console.log(models)
+      // console.log(models)
       bucketContent = models
         .filter(model => model.objectKey.indexOf("zzz") === -1)
         .map(model => (

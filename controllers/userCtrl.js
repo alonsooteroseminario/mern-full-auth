@@ -12,6 +12,35 @@ const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 const {CLIENT_URL} = process.env
 
 const userCtrl = {
+    activeBucket: async (req, res) =>{
+        try {
+            // console.log(req.body)
+
+            await Users.findOneAndUpdate({_id: req.body.id}, {
+                active :req.body.active
+            })
+
+            res.json({msg: "Update Success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    verifyBucket: async (req, res) =>{
+        try {
+            
+
+            const user = await Users.findOne({_id: req.body.id})
+            // console.log(user)
+            let out = true
+            if(user.active == 1){
+                out = false
+            }
+            res.json(out)
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     shareviewer: async (req, res) => {
         
         const url = `${CLIENT_URL}${req.body.url}`

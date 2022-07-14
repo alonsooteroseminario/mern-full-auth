@@ -3,6 +3,10 @@ const userCtrl = require('../controllers/userCtrl')
 const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 
+router.post('/verifybucket', userCtrl.verifyBucket)
+
+router.post('/activebucket', userCtrl.activeBucket)
+
 router.post('/share/viewer', userCtrl.shareviewer)
 
 router.post('/register', userCtrl.register)
