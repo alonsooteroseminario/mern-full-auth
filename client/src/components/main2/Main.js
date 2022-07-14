@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useSelector, useDispatch} from 'react-redux'
 import { useParams } from "react-router-dom";
 import {
   convertModel,
   getTreeInfo
 } from "../../redux/actions/forgeDerivativeActions";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import isEmpty from "../../redux/validation/is-empty";
 import CircleSpinner from "../common/CircleSpinner";
@@ -17,7 +16,6 @@ function Main() {
 
   useEffect( () => {
 
-    // console.log(this.props.match.params)
     convertModel(objectId, filename, dispatch);
     getTreeInfo(objectId, filename, dispatch);
 
@@ -25,10 +23,6 @@ function Main() {
     
   const forgeDerivative = useSelector( state => state.forgeDerivative)
   const { objectInfo, urn, loading } = forgeDerivative;
-
-
-  // console.log('objectInfo---->', objectInfo)
-  // console.log('loading---->', loading)
 
   let mainContent;
 

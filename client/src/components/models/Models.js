@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux'
-import {useParams, useHistory} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import { Link } from "react-router-dom";
 import { getModels, uploadModel } from "../../redux/actions/forgeManagementActions";
 import ModelItem from "./ModelItem";
@@ -10,29 +10,21 @@ function Models() {
 
   const [uploadFile, setUploadFile] = useState(null)
   const auth = useSelector(state => state.auth)
-  const {user, isLogged} = auth
+  const { isLogged} = auth
 
   useEffect( () => {
-
     getModels(bucketKey, dispatch);
-
   }, [])
 
   useEffect( () => {
-
-
-
     setUploadFile(uploadFile)
-
   }, [uploadFile])
 
   const handleFile = (e) => {
     setUploadFile(e.target.files[0])
-
   }
 
   const handleUpload = () => {
-      // console.log(uploadFile)
       uploadModel(uploadFile, bucketKey, dispatch);
   }
 
@@ -47,15 +39,11 @@ function Models() {
   let bucketContent;
   let bucketPersistencia;
 
-
-  // console.log(loading)
-
   if (models === null || loading) {
     bucketContent = <Spinner />;
     
   } else {
     if (models.length > 0) {
-      // console.log(models)
       bucketContent = models
         .filter(model => model.objectKey.indexOf("zzz") === -1)
         .map(model => (
@@ -72,7 +60,7 @@ function Models() {
     }
   }
 
-  if(bucketKey=="persistencia"){
+  if(bucketKey === "persistencia"){
     bucketPersistencia = <div></div>
   }else{
     bucketPersistencia = <div className="form-group m-5">
@@ -93,7 +81,6 @@ function Models() {
   return ( 
       <>
         <div className="container">
-
           {isLogged ?
                   <div className="row">
                     <Link to="/buckets" className="btn btn-sm btn-light mb-3 text-left">
@@ -102,11 +89,8 @@ function Models() {
                   </div>:
                   <div></div>
           }
-
-
           {bucketContent}
           {bucketPersistencia}
-
         </div>
       </> 
   );

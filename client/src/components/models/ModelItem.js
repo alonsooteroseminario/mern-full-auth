@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import axios from 'axios'
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deleteModel } from "../../redux/actions/forgeManagementActions";
 import {useSelector, useDispatch} from 'react-redux'
 import CopyToClipboardButton from './CopyToClipboardButton'
@@ -14,11 +14,10 @@ const initialState = {
 function ModelItem(props) {
 
   const auth = useSelector(state => state.auth)
-  const { isLogged, isAdmin} = auth
+  const { isLogged} = auth
   const dispatch = useDispatch()
-  const {token} = useParams()
   const [user, setUser] = useState(initialState)
-  const {name, email, err} = user
+  const {email} = user
 
   const handleClick = (bucketKey, objectKey, dispatch) => {
     deleteModel(bucketKey, objectKey, dispatch);
@@ -39,21 +38,17 @@ function ModelItem(props) {
 
   let url = `/bucket/detail/${bucketKey}/${objectId}`
   let urlWindow = window.location
-  // console.log(urlWindow.origin)
-  
+
   const handleSendEmail = async () => {
     try {
-      const res = await axios.post('/user/share/viewer', {
+      await axios.post('/user/share/viewer', {
         email,
         url
       })
-
-
     } catch (err) {
-      
+      console.log(err)
     }
   }
-
 
   const style = {
     zIndex: "-1",
@@ -77,7 +72,6 @@ function ModelItem(props) {
             >
               Load App
             </Link>
-
             { isLogged ? 
             <Link
               className="btn btn-sm btn-danger col-md-1"
@@ -88,7 +82,6 @@ function ModelItem(props) {
               Delete
             </Link>: 
             ''}
-            
             <input 
                 type="text" 
                 placeholder="Enter email address"
@@ -100,13 +93,9 @@ function ModelItem(props) {
               className="btn btn-sm btn-secondary col" 
               type="button"
               onClick={handleSendEmail}>Send by Email</button>
-
             {/* <button className="btn btn-sm btn-secondary col" type="button">Send SMS</button>
-
             <button className="btn btn-sm btn-secondary col" type="button">Send WhatsApp</button> */}
-
             <CopyToClipboardButton url={`${urlWindow.origin}/bucket/detail/${bucketKey}/${objectId}`}/>
-
           </div>
         </div>
       </> 

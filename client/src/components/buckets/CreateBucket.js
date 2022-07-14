@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
-import {useSelector, useDispatch} from 'react-redux'
-import {useParams, useHistory} from 'react-router-dom'
+import React, { useState } from "react";
+import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import { createBucket } from "../../redux/actions/forgeManagementActions";
 
 // Delete this component and functionality, Create three buckets and keep those forever, create new api

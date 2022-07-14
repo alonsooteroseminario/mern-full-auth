@@ -1,16 +1,15 @@
 import React from "react";
 import ViewerItem from "./ViewerItem";
-import Tree from "./Tree";
-
 
 function Viewer(props) {
 
-  const { objectInfo, urn } = props;
+  const { urn } = props;
+  // const { objectInfo, urn } = props;
 
-  const object1 = {
-    // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
-    objects: objectInfo
-  };
+  // const object1 = {
+  //   // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
+  //   objects: objectInfo
+  // };
   return (
     <div class="landing-page">
       <div class="container">

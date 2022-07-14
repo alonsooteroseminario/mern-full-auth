@@ -15,7 +15,6 @@ import CreateBucket from "../buckets/CreateBucket";
 import Models from "../models/Models";
 import Main from "../main2/Main";
 import Dashboard from "./dashboard/Dashboard"
-import MainShare from '../main2/MainShare'
 
 import Home from '../body/home/Home'
 
@@ -26,7 +25,7 @@ function Body() {
     const forgeAuth = useSelector(state => state.forgeAuth)
 
     const {isLogged, isAdmin} = auth
-    const { isAuthenticated, forgeUser} = forgeAuth
+    const { isAuthenticated} = forgeAuth
 
 
     return (

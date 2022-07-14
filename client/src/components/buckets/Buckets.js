@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux'
-import {useParams, useHistory} from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import { getBuckets } from "../../redux/actions/forgeManagementActions";
 import Spinner from "../common/Spinner";
 import BucketItem from "./BucketItem";
@@ -10,29 +10,24 @@ import { createBucket } from "../../redux/actions/forgeManagementActions";
 
 function Buckets() {
   const auth = useSelector(state => state.auth)
-  const forgeAuth = useSelector(state => state.forgeAuth)
   const forgeManagement = useSelector( state => state.forgeManagement)
-  const users = useSelector(state => state.users)
   const [id, setId] = useState('')
   const token = useSelector(state => state.token)
   
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { user, isLogged, isAdmin} = auth
-  const { isAuthenticated, forgeUser} = forgeAuth
+  const { user} = auth
   const { buckets, loading } = forgeManagement
  
-  // console.log('buckets------>',buckets)
-  const [bucketKey, SetBucketKey] = useState(`${user._id}_transient`)
-  const [policyKey, SetPolicyKey] = useState('transient')
-  const [bucketKey2, SetBucketKey2] = useState(`${user._id}_persistent`)
-  const [policyKey2, SetPolicyKey2] = useState('persistent')
+  const [bucketKey] = useState(`${user._id}_transient`)
+  const [policyKey] = useState('transient')
+  const [bucketKey2] = useState(`${user._id}_persistent`)
+  const [policyKey2] = useState('persistent')
 
   const [err, setErr] = useState(false)
 
   const [userPersistent, setUserPersistent] = useState(true);
-  const [userTransient, setUserTransient] = useState(true);
 
   let bucketsContent;
 
@@ -41,9 +36,8 @@ function Buckets() {
     createBucket(bucketKey, policyKey, history, dispatch);
     createBucket(bucketKey2, policyKey2, history, dispatch);
 
-    //POST active to "1"
     try{
-      const res = await axios.post(`/user/activebucket`, {
+      await axios.post(`/user/activebucket`, {
         id: user._id,
         active: 1
       }, {
@@ -122,7 +116,6 @@ function Buckets() {
   return ( 
       <>
         <div className="buckets">
-          {/* <h1> buckets </h1> */}
           {userPersistent?bucketsContentButton:''}
           {bucketsContent}
         </div>

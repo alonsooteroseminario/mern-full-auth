@@ -39,7 +39,7 @@ function BucketItem({ bucket }) {
               className="btn btn-primary"
               to={`/bucket/detail/${bucket.bucketKey}`}
             >
-              {bucket.policyKey == 'transient'?'24 hours':'Persistent'}
+              {bucket.policyKey === 'transient'?'24 hours':'Persistent'}
             </Link>
           </div>
 

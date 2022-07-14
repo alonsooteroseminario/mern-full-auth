@@ -45,9 +45,9 @@ function Login() {
         }
     }
 
-    const handleDefaultLogin = (e) => {
-        getForgeAccess(history, dispatch);
-      }
+    // const handleDefaultLogin = (e) => {
+    //     getForgeAccess(history, dispatch);
+    //   }
 
     return (
         <div className="login_page">
