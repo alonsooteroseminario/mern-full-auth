@@ -48,7 +48,7 @@ function ViewerItem (props) {
           viewer.finish();
         }
       };
-  }, [itemSelected])
+  }, [])
 
   useEffect(
     () => {
