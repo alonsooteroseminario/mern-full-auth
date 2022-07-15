@@ -46,7 +46,7 @@ function Home() {
             <div className="landing-page">
             <div className="container">
                 <div className="info">
-                <h1>Drafter Tool for Foremen</h1>
+                <h1>Drafting Tool for Foremen</h1>
                 <h4>Press Start to continue</h4>
                { isLogged ? <Link
                     className="btn btn-primary"

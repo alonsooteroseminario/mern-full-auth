@@ -64,7 +64,7 @@ function Models() {
     bucketPersistencia = <div></div>
   }else{
     bucketPersistencia = <div className="form-group m-5">
-                            <label htmlFor="uploadModel"> Upload a Model</label>
+                            <label htmlFor="uploadModel"> Upload NEW Project File</label>
                               <input
                                 type="file"
                                 id="uploadModel"

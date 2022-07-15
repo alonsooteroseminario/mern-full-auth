@@ -26,7 +26,7 @@ function Header() {
             <img src={user.avatar} alt=""/> {user.name} <i className="fas fa-angle-down"></i>
             </Link>
             <ul className="dropdown">
-                <li><Link to="/profile">Profile</Link></li>
+                {/* <li><Link to="/profile">Profile</Link></li> */}
                 {/* <li><Link to="/dashboard">Dashboard</Link></li> */}
                 <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
             </ul>

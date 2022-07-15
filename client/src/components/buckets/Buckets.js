@@ -116,7 +116,7 @@ function Buckets() {
   return ( 
       <>
         <div className="buckets">
-          {userPersistent?bucketsContentButton:''}
+          {!userPersistent?'':bucketsContentButton}
           {bucketsContent}
         </div>
       </> 

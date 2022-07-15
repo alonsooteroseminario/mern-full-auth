@@ -70,7 +70,7 @@ function ModelItem(props) {
               // ObjectId Format: urn:adsk.objects:os.object:duvgrzriu_tutorial_bucket/rst_basic_sample_project.rvt
               // So it will be splitted in two different params objectid and filename
             >
-              Load App
+              Load Project
             </Link>
             { isLogged ? 
             <Link
@@ -79,7 +79,7 @@ function ModelItem(props) {
                 handleDelete
               }
             >
-              Delete
+              Delete Project
             </Link>: 
             ''}
             <input 
@@ -92,7 +92,7 @@ function ModelItem(props) {
             <button 
               className="btn btn-sm btn-secondary col" 
               type="button"
-              onClick={handleSendEmail}>Send by Email</button>
+              onClick={handleSendEmail}>Send To Email</button>
             {/* <button className="btn btn-sm btn-secondary col" type="button">Send SMS</button>
             <button className="btn btn-sm btn-secondary col" type="button">Send WhatsApp</button> */}
             <CopyToClipboardButton url={`${urlWindow.origin}/bucket/detail/${bucketKey}/${objectId}`}/>
