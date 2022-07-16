@@ -26,9 +26,9 @@ function BucketItem({ bucket }) {
                 </h6>
               </div>
 
-              <div className="col-sm-6">
+              {/* <div className="col-sm-6">
                 <h6>Policy: {bucket.policyKey}</h6>
-              </div>
+              </div> */}
 
             </div>
           </div>

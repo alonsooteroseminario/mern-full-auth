@@ -3,6 +3,7 @@ import { Link, useHistory, useParams } from 'react-router-dom'
 import './home.css'
 import { getForgeAccess, getForgeAccessFromStart, getForgeAccessShared } from "../../../redux/actions/forgeAuthActions";
 import {useSelector, useDispatch} from 'react-redux'
+import ModelsLanding from "../../models/ModelsLanding";
 
 function Home() {
     const auth = useSelector(state => state.auth)
@@ -40,14 +41,18 @@ function Home() {
         }
     }
 
+    const handleDefaultUpload = () => {
+        getForgeAccessShared(history, '/bucket/detail/temporal', dispatch);
+    }
+
 
     return (
         <div>
             <div className="landing-page">
             <div className="container">
                 <div className="info">
-                <h1>Drafting Tool for Foremen</h1>
-                <h4>Press Start to continue</h4>
+                <h2>Share 2D or 3D Views Online</h2>
+                <h4>Press to continue</h4>
                { isLogged ? <Link
                     className="btn btn-primary"
                     to={`/buckets`}
@@ -61,8 +66,20 @@ function Home() {
                     >
                     Start
                 </Link>}
-                <p>The best communication tool between Technical Office and Foremen Contractors on site. </p>
-                
+                <br/>
+                <p>The best communication tool between Office and Foremen on site. </p>
+                <br/>
+                <li>No software installation!</li>
+                <li>Upload a file then share the URL</li>
+                {/* <Link
+                    className="btn btn-primary"
+                    onClick={handleDefaultUpload}
+                    to={`/bucket/detail/temporal`}
+                    >
+                    Upload File to Share
+                </Link> */}
+                {/* <ModelsLanding/> */}
+
 
                 </div>
                 <div className="image">

@@ -17,7 +17,7 @@ function Buckets() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { user} = auth
+  const { user, isLogged, isAdmin} = auth
   const { buckets, loading } = forgeManagement
  
   const [bucketKey] = useState(`${user._id}_transient`)
@@ -27,7 +27,7 @@ function Buckets() {
 
   const [err, setErr] = useState(false)
 
-  const [userPersistent, setUserPersistent] = useState(true);
+  const [verifyBucket, setVerifyBucket] = useState(true);
 
   let bucketsContent;
 
@@ -48,28 +48,23 @@ function Buckets() {
     }
   }
   let bucketsContentButton;
-  bucketsContentButton = ( 
+  bucketsContentButton = ( isLogged ?
         <div>
             <form className="form-signin" onSubmit={onSubmit}>
               <button className="btn btn-primary btn-block text-uppercase" type="submit">
                  Activar Bucket 
               </button>
             </form>
-        </div>); 
+        </div>:
+        ''); 
 
   useEffect( () => {
     if (localStorage.access_token) {
         getBuckets(dispatch)
         setId(user._id)
-
-        
     }
     func()
   }, [getBuckets, dispatch] )
-
-  useEffect( ()=>{
-
-  }, [id])
 
   const func = async () => {
     try{
@@ -78,7 +73,7 @@ function Buckets() {
       },{
           headers: {Authorization: token}
       })
-      setUserPersistent(res.data)
+      setVerifyBucket(res.data)
     }catch (err){
       err.response.data.msg && setErr(err.response.data.msg)
     }
@@ -101,8 +96,9 @@ function Buckets() {
                               }
                               if(bucket.bucketKey.includes(`${user._id}_transient`)){
                               return (<BucketItem key={index} bucket={bucket} />)
-                            }
+                              }
                           })
+                          
             }
           </>
         );
@@ -116,7 +112,7 @@ function Buckets() {
   return ( 
       <>
         <div className="buckets">
-          {!userPersistent?'':bucketsContentButton}
+          {!verifyBucket?'':bucketsContentButton}
           {bucketsContent}
         </div>
       </> 

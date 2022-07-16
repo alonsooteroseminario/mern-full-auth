@@ -7,7 +7,7 @@ import axios from 'axios'
 function Header() {
     const auth = useSelector(state => state.auth)
 
-    const {user, isLogged} = auth
+    const {user, isLogged, isAdmin} = auth
 
 
     const handleLogout = async () => {
@@ -52,8 +52,8 @@ function Header() {
             </div>
 
             <ul style={transForm}>
-                {/* {
-                    isLogged
+                {
+                    isLogged && isAdmin
                     ? 
                     <li>
                         <Link className="nav-link" to="/bucket/create">
@@ -62,8 +62,8 @@ function Header() {
                     </li>
                     
                     :<li></li>
-                } */}
-                {
+                }
+                {/* {
                     isLogged
                     ? 
                     <li>
@@ -73,7 +73,7 @@ function Header() {
                     </li>
                     
                     :<li></li>
-                }
+                } */}
                 {
                     isLogged
                     ? userLink()

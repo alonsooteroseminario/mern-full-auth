@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import { getModels, uploadModel } from "../../redux/actions/forgeManagementActions";
 import ModelItem from "./ModelItem";
 import Spinner from "../common/Spinner";
+import "./models.css";
 
-function Models() {
+function ModelsLanding() {
 
   const [uploadFile, setUploadFile] = useState(null)
   const auth = useSelector(state => state.auth)
@@ -82,19 +83,10 @@ function Models() {
   return ( 
       <>
         <div className="container">
-          {isLogged ?
-                  <div className="row">
-                    <Link to="/buckets" className="btn btn-sm btn-light mb-3 text-left">
-                      Back To Bucket List
-                    </Link>
-                  </div>:
-                  <div></div>
-          }
-          {bucketContent}
           {bucketPersistencia}
         </div>
       </> 
   );
 }
 
-export default Models;
+export default ModelsLanding;

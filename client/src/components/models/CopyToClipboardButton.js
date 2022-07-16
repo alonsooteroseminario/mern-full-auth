@@ -16,15 +16,15 @@ return (
         className="btn btn-sm btn-secondary col" 
         type="button"
         onClick={handleClick}>
-        Copy Link to Share
+        Copy URL to Share
       </button>
         {open ?
         <span
             open={open}
             onClose={() => setOpen(false)}
             autoHideDuration={2000}
-            message="Copied to clipboard">
-            Copied to clipboard
+            message="Copied to clipboard!">
+            Copied to clipboard!
         </span>:
         <div>
 
