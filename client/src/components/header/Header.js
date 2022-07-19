@@ -1,14 +1,15 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import axios from 'axios'
-
+import { Link, useHistory, useParams } from 'react-router-dom'
+import { getForgeAccess, getForgeAccessFromStart, getForgeAccessShared } from "../../redux/actions/forgeAuthActions";
 
 function Header() {
     const auth = useSelector(state => state.auth)
 
     const {user, isLogged, isAdmin} = auth
-
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     const handleLogout = async () => {
         try {
@@ -18,6 +19,11 @@ function Header() {
         } catch (err) {
             window.location.href = "/";
         }
+    }
+
+    const handleDemo = async () => {
+        getForgeAccessShared(history, `/bucket/detail/persistencia`, dispatch);
+
     }
 
     const userLink = () => {
@@ -41,7 +47,7 @@ function Header() {
         <header>
             <div className="logo">
                 <h1><Link to="/">
-                        <div class="rad-logo-container rad-nav-min">               
+                        <div className="rad-logo-container rad-nav-min">               
                             <img 
                             id="logoWeclashImage" 
                             src="https://static.wixstatic.com/media/5838f5_07d551e5984f48c7983061f9c41a2650~mv2.png/v1/fill/w_429,h_162,al_c,usm_0.66_1.00_0.01,enc_auto/Original%20on%20Transparent.png" 
@@ -63,17 +69,17 @@ function Header() {
                     
                     :<li></li>
                 }
-                {/* {
-                    isLogged
+                {
+                    !isLogged
                     ? 
                     <li>
-                        <Link to="/buckets">
-                        <i className="fas fa-shopping-cart"></i> Buckets
+                        <Link to="/bucket/detail/persistencia" onClick={handleDemo}>
+                        <i className="fas fa-shopping-cart"></i> Demo
                         </Link>
                     </li>
                     
-                    :<li></li>
-                } */}
+                    :''
+                }
                 {
                     isLogged
                     ? userLink()

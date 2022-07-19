@@ -63,6 +63,7 @@ function Home() {
                 <Link
                     className="btn btn-primary"
                     onClick={handleDefaultLoginFromStart }
+                    to={`/upload`}
                     >
                     Start
                 </Link>}

@@ -15,6 +15,7 @@ import CreateBucket from "../buckets/CreateBucket";
 import Models from "../models/Models";
 import Main from "../main2/Main";
 import Dashboard from "./dashboard/Dashboard"
+import Upload from "./upload/Upload"
 
 import Home from '../body/home/Home'
 
@@ -51,6 +52,7 @@ function Body() {
                 <Route path="/bucket/detail/:bucketKey" component={isAuthenticated ? Models : Home} exact />
                 <Route path="/bucket/detail/:bucketKey/:objectId/:filename" component={isAuthenticated ? Main : Home} exact />
 
+                <Route path="/upload" component={isAuthenticated ? Upload : Home} exact />
 
             </Switch>
         </section>

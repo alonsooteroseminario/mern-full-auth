@@ -5,7 +5,7 @@ import {
   convertModel,
   getTreeInfo
 } from "../../redux/actions/forgeDerivativeActions";
-import "react-tabs/style/react-tabs.css";
+// import "react-tabs/style/react-tabs.css";
 import isEmpty from "../../redux/validation/is-empty";
 import CircleSpinner from "../common/CircleSpinner";
 import Viewer from "./viewer/Viewer";

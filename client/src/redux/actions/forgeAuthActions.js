@@ -58,7 +58,7 @@ export const getForgeAccessFromStart = (history, dispatch ) => {
       // Set current user
       dispatch(setForgeAccess(decoded));
       // Go to /dashboard
-      history.push("/bucket/detail/persistencia");
+      history.push("/upload");
     })
     .catch(err => console.log(err));
 };

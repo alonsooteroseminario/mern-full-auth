@@ -61,7 +61,7 @@ function Models() {
   }
 
   if(bucketKey === "persistencia"){
-    bucketPersistencia = <div></div>
+    bucketPersistencia = ''
   }
   else{
     bucketPersistencia = <div className="form-group m-5">
@@ -88,7 +88,7 @@ function Models() {
                       Back To Bucket List
                     </Link>
                   </div>:
-                  <div></div>
+                  ''
           }
           {bucketContent}
           {bucketPersistencia}

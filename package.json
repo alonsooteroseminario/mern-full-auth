@@ -12,7 +12,8 @@
     "install-all": "concurrently \"npm run server-install\"  \"npm run client-install\"",
     "dev": "concurrently \"npm run server\"  \"npm run client\"",
     "prod": "export NODE_ENV=production && node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "build-css": "node-sass --include-path scss client/src/components/body/upload/upload.scss client/src/components/body/upload/upload.css"
   },
   "keywords": [],
   "author": "",
@@ -41,6 +42,7 @@
     "store": "^2.0.12"
   },
   "devDependencies": {
+    "node-sass": "^7.0.1",
     "nodemon": "^2.0.5"
   }
 }

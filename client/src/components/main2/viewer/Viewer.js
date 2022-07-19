@@ -1,5 +1,6 @@
 import React from "react";
 import ViewerItem from "./ViewerItem";
+// import Chat from '../../chat/Chat';
 
 function Viewer(props) {
 
@@ -14,8 +15,9 @@ function Viewer(props) {
     <div class="landing-page">
       <div class="container">
         {/* <div class="row">
-          <h3> Viewer Component </h3>
+          <h3> Chat </h3>
             <Tree objectInfo={object1} />
+          <Chat />
         </div> */}
         <div class="row">
             <ViewerItem displayViewer={true} id="viewer" urn={urn} />
