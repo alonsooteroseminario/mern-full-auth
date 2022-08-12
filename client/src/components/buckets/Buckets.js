@@ -19,11 +19,13 @@ function Buckets() {
 
   const { user, isLogged, isAdmin} = auth
   const { buckets, loading } = forgeManagement
+
+
  
-  const [bucketKey] = useState(`${user._id}_transient`)
-  const [policyKey] = useState('transient')
-  const [bucketKey2] = useState(`${user._id}_persistent`)
-  const [policyKey2] = useState('persistent')
+  const bucketKey = useState(`${user._id}_transient`)
+  const policyKey = useState('transient')
+  const bucketKey2 = useState(`${user._id}_persistent`)
+  const policyKey2 = useState('persistent')
 
   const [err, setErr] = useState(false)
 
@@ -33,8 +35,9 @@ function Buckets() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    createBucket(bucketKey, policyKey, history, dispatch);
-    createBucket(bucketKey2, policyKey2, history, dispatch);
+
+    createBucket(bucketKey[0], policyKey[0], history, dispatch);
+    createBucket(bucketKey2[0], policyKey2[0], history, dispatch);
 
     try{
       await axios.post(`/user/activebucket`, {
@@ -43,6 +46,11 @@ function Buckets() {
       }, {
           headers: {Authorization: token}
       })
+      // console.log(user._id);
+      // console.log(bucketKey);
+      // console.log(policyKey);
+      // console.log(bucketKey2);
+      // console.log(policyKey2);
     }catch (err){
       err.response.data.msg && setErr(err.response.data.msg)
     }
@@ -85,7 +93,6 @@ function Buckets() {
   } else {
       // Check if logged forge user has buckets
       if (Object.keys(buckets).length > 0) {
-
         bucketsContent = (
           <>
             {

@@ -2,9 +2,9 @@ import { GET_BUCKETS, GET_MODELS, MANAGEMENT_LOADING } from "./types";
 import axios from "axios";
 
 // Get Buckets
-export const getBuckets = (dispatch) => {
+export const getBuckets = async (dispatch) => {
   dispatch(setPostLoading());
-  axios
+  await axios
     .get("/api/datamanagement/buckets", {
       params: { access_token: localStorage.access_token }
     })
@@ -25,6 +25,7 @@ export const createBucket = async (bucketKey, policyKey, history, dispatch) => {
     bucketKey,
     policyKey
   };
+  // console.log(body)
 
   await axios
     .post("/api/datamanagement/create", body, {
@@ -38,9 +39,9 @@ export const createBucket = async (bucketKey, policyKey, history, dispatch) => {
 };
 
 // Get Models
-export const getModels = (bucketKey, dispatch) => {
+export const getModels = async (bucketKey, dispatch) => {
   dispatch(setPostLoading());
-  axios
+  await axios
     .get("/api/datamanagement/models", {
       params: { access_token: localStorage.access_token, bucketKey }
     })

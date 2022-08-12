@@ -6,7 +6,7 @@ router.get("/buckets", (req, res) => {
   const access_token = req.query.access_token;
   Axios({
     method: "GET",
-    url: "https://developer.api.autodesk.com/oss/v2/buckets",
+    url: "https://developer.api.autodesk.com/oss/v2/buckets?limit=100",
     headers: {
       "content-type": "application/json",
       Authorization: "Bearer " + access_token

@@ -61,7 +61,7 @@ function ViewerItem (props) {
         "MyViewerDiv"
       ))
       someFunc2(forgeViewer.viewer_token)
-  }, [forgeViewer.viewer_token])
+  }, [forgeViewer.viewer_token, someFunc2])
 
 
   useEffect(
