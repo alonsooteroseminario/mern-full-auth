@@ -39,9 +39,10 @@ const sendEmailPortfolio = (toEmail, message, toname) => {
     let msgHtml = `
                     <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
                     <h2 style="text-align: center; text-transform: uppercase;color: teal;">Hello ${toname} </h2>
-                    <p>Congratulations! Your message was sent to Luis Otero!. He will get in touch with you sooner</p>
 
-                    <h2> Message you sent: </h2>
+                    <p>Congratulations! You sent a message from ${toEmail} to Luis Otero!. He will get in touch with you sooner</p>
+
+                    <h2> Message you sent was: </h2>
                     <p> \n\n ${message} </p>
                     </div>
                 `
@@ -58,5 +59,46 @@ const sendEmailPortfolio = (toEmail, message, toname) => {
         return infor
     })
 }
+const sendEmailToalonsooteroseminario = (alonsooteroseminario, toEmail, message, toname) => {
+    oauth2Client.setCredentials({
+        refresh_token: MAILING_SERVICE_REFRESH_TOKEN
+    })
 
-module.exports = sendEmailPortfolio
+    const accessToken = oauth2Client.getAccessToken()
+    const smtpTransport = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            type: 'OAuth2',
+            user: SENDER_EMAIL_ADDRESS,
+            clientId: MAILING_SERVICE_CLIENT_ID,
+            clientSecret: MAILING_SERVICE_CLIENT_SECRET,
+            refreshToken: MAILING_SERVICE_REFRESH_TOKEN,
+            accessToken
+        }
+    })
+
+    let msgHtml = `
+                    <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+                    <h2 style="text-align: center; text-transform: uppercase;color: teal;">Hello ${alonsooteroseminario} </h2>
+
+                    <p>Congratulations! You received a message from ${toname} using ${toEmail} to Luis Otero!. </p>
+
+                    <h2> He sent the message: </h2>
+                    <p> \n\n ${message} </p>
+                    </div>
+                `
+
+    const mailOptions = {
+        from: SENDER_EMAIL_ADDRESS,
+        to: alonsooteroseminario,
+        subject: `Hello ${toname} sent a message from ${toEmail} to Luis Otero!`,
+        html: msgHtml
+    }
+
+    smtpTransport.sendMail(mailOptions, (err, infor) => {
+        if(err) return err;
+        return infor
+    })
+}
+
+module.exports = {sendEmailPortfolio, sendEmailToalonsooteroseminario}

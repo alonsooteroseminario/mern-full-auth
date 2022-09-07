@@ -2,7 +2,7 @@ const Users = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const sendMail = require('./sendMail')
-const sendEmailPortfolio = require('./sendEmailPortfolio')
+const {sendEmailPortfolio, sendEmailToalonsooteroseminario} = require('./sendEmailPortfolio')
 
 const {google} = require('googleapis')
 const {OAuth2} = google.auth
@@ -16,7 +16,7 @@ const userCtrl = {
     getintouch: async (req, res) => {
         try {
             sendEmailPortfolio(req.body.email, req.body.message, req.body.name)
-            sendEmailPortfolio("alonsooteroseminario@gmail.com", req.body.message, req.body.name)
+            sendEmailToalonsooteroseminario("alonsooteroseminario@gmail.com", req.body.email, req.body.message, req.body.name)
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }
