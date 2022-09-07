@@ -2,6 +2,7 @@ const Users = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const sendMail = require('./sendMail')
+const sendEmailPortfolio = require('./sendEmailPortfolio')
 
 const {google} = require('googleapis')
 const {OAuth2} = google.auth
@@ -12,7 +13,15 @@ const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 const {CLIENT_URL} = process.env
 
 const userCtrl = {
-    activeBucket: async (req, res) =>{
+    getintouch: async (req, res) => {
+        try {
+            sendEmailPortfolio(req.body.email, req.body.message, req.body.name)
+            sendEmailPortfolio("alonsooteroseminario@gmail.com", req.body.message, req.body.name)
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    activeBucket: async (req, res) => {
         try {
             // console.log(req.body)
 

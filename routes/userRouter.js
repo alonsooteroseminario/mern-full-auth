@@ -3,6 +3,8 @@ const userCtrl = require('../controllers/userCtrl')
 const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 
+router.post('/getintouch', userCtrl.getintouch)
+
 router.post('/verifybucket', userCtrl.verifyBucket)
 
 router.post('/activebucket', userCtrl.activeBucket)
